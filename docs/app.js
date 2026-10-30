@@ -69,6 +69,8 @@ let data = { listings: [], status: {}, updated: null };
 let state = { ...DEFAULTS, ...store.get("filters", {}) };
 let shown = PAGE_SIZE;
 let visibleItems = [];
+let hoverTimer = null;
+const HIGHLIGHT = "#e8590c";
 const favs = new Set(store.get("favs", []));
 const hidden = new Set(store.get("hidden", []));
 const previousVisit = store.get("lastVisit", null);
@@ -290,7 +292,11 @@ function card(x) {
     render();
   });
 
-  li.addEventListener("mouseenter", () => focusListing(x));
+  li.addEventListener("mouseenter", () => {
+    // Short delay so sweeping the mouse over several cards does not start a fly animation for each.
+    clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(() => focusListing(x), 120);
+  });
   li.append(g, body);
   return li;
 }
@@ -375,6 +381,7 @@ const mapView = {
     }).addTo(this.map);
     this.pins = L.layerGroup().addTo(this.map);
     this.highlight = L.layerGroup().addTo(this.map);
+    this.addShadowControl();
     fetch("data/bezirke.geojson")
       .then((r) => (r.ok ? r.json() : null))
       .then((geo) => {
@@ -398,12 +405,10 @@ const mapView = {
     if (this.districts) {
       const line = getComputedStyle(document.documentElement).getPropertyValue("--muted").trim() || "#888";
       this.districtLayer = L.geoJSON(this.districts, {
-        style: (f) => ({
-          color: line,
-          weight: state.districts.includes(f.properties.nr) ? 1.2 : 0.5,
-          opacity: state.districts.includes(f.properties.nr) ? 0.8 : 0.3,
-          fill: false,
-        }),
+        style: (f) => {
+          const on = state.districts.includes(f.properties.nr);
+          return { color: on ? "#1c7ed6" : line, weight: on ? 1.5 : 0.6, opacity: on ? 0.7 : 0.4, fill: on, fillColor: "#1c7ed6", fillOpacity: 0.04 };
+        },
         interactive: false,
       }).addTo(this.map);
     }
@@ -430,27 +435,62 @@ const mapView = {
     if (x.geo && x.geo.exact) {
       const ll = [x.geo.lat, x.geo.lon];
       L.marker(ll, { icon: this.icon("big"), interactive: false, zIndexOffset: 1000 }).addTo(this.highlight);
-      bounds = L.latLng(ll).toBounds(500);
+      bounds = L.latLng(ll).toBounds(400);
       label = "Genaue Lage laut Inserat";
     } else if (x.geo && x.geo.radius) {
-      const c = L.circle([x.geo.lat, x.geo.lon], { radius: x.geo.radius, color: "#1a1a1a", weight: 1.5, fillOpacity: 0.12 }).addTo(this.highlight);
+      const c = L.circle([x.geo.lat, x.geo.lon], { radius: x.geo.radius, color: HIGHLIGHT, weight: 2, fillColor: HIGHLIGHT, fillOpacity: 0.2 }).addTo(this.highlight);
       bounds = c.getBounds();
       label = "Ungefähre Lage laut Inserat";
     } else if (x.district) {
       const f = this.districts && this.districts.features.find((f) => f.properties.nr === x.district);
       if (f) {
-        const layer = L.geoJSON(f, { style: { color: "#1a1a1a", weight: 2, fillColor: "#1a1a1a", fillOpacity: 0.12 } }).addTo(this.highlight);
+        const layer = L.geoJSON(f, { style: { color: HIGHLIGHT, weight: 2.5, fillColor: HIGHLIGHT, fillOpacity: 0.22 } }).addTo(this.highlight);
         bounds = layer.getBounds();
       } else {
-        const c = L.circle(DISTRICT_CENTERS[x.district], { radius: 900, color: "#1a1a1a", weight: 1.5, fillOpacity: 0.12 }).addTo(this.highlight);
+        const c = L.circle(DISTRICT_CENTERS[x.district], { radius: 900, color: HIGHLIGHT, weight: 2, fillColor: HIGHLIGHT, fillOpacity: 0.2 }).addTo(this.highlight);
         bounds = c.getBounds();
       }
       label = `Nur Bezirk bekannt: ${x.district}., ${DISTRICT_NAMES[x.district]}`;
     }
     $("mapHint").textContent = label || "Keine Ortsangabe";
-    if (pan && bounds && !this.map.getBounds().contains(bounds)) {
-      this.map.flyToBounds(bounds, { maxZoom: 14, duration: 0.4, padding: [30, 30] });
+    this.updateShadowLink();
+    if (pan && bounds) {
+      // Always move: previously the map only moved when the target was off-screen,
+      // so a listing inside a zoomed-out view looked like it was ignored.
+      this.map.stop();
+      this.map.flyToBounds(bounds, { maxZoom: x.geo && x.geo.exact ? 16 : 14, duration: 0.5, padding: [30, 30] });
     }
+  },
+
+  shadowLink: null,
+
+  addShadowControl() {
+    const Control = L.Control.extend({
+      options: { position: "topright" },
+      onAdd: () => {
+        const a = L.DomUtil.create("a", "map-btn");
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.title = "Sonne und Schatten an dieser Stelle in Shadowmap ansehen";
+        a.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg> Shadowmap';
+        L.DomEvent.disableClickPropagation(a);
+        a.addEventListener("click", () => this.updateShadowLink());
+        this.shadowLink = a;
+        return a;
+      },
+    });
+    new Control().addTo(this.map);
+    this.map.on("moveend", () => this.updateShadowLink());
+    this.updateShadowLink();
+  },
+
+  updateShadowLink() {
+    if (!this.shadowLink || !this.map) return;
+    const x = this.active;
+    const exact = x && x.geo && x.geo.exact;
+    const c = exact ? L.latLng(x.geo.lat, x.geo.lon) : this.map.getCenter();
+    const zoom = exact ? 18 : Math.max(this.map.getZoom(), 15);
+    this.shadowLink.href = `https://app.shadowmap.org/?lat=${c.lat.toFixed(5)}&lng=${c.lng.toFixed(5)}&zoom=${zoom}&time=${Date.now()}`;
   },
 };
 
