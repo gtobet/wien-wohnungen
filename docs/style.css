@@ -413,6 +413,10 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .map { flex: 1; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface-2); }
 .map-hint { margin: 0; font-size: .76rem; color: var(--muted); }
 .leaflet-container { font: inherit; }
+.leaflet-tile-pane { filter: grayscale(1) contrast(.92) brightness(1.04); }
+@media (prefers-color-scheme: dark) {
+  .leaflet-tile-pane { filter: grayscale(1) invert(1) contrast(.85) brightness(.9); }
+}
 .pin {
   width: 12px;
   height: 12px;

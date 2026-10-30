@@ -368,11 +368,10 @@ const mapView = {
   init() {
     if (this.map || typeof L === "undefined") return;
     this.map = L.map("map", { zoomControl: true, scrollWheelZoom: true, attributionControl: true }).setView([48.2082, 16.3738], 12);
-    const dark = matchMedia("(prefers-color-scheme: dark)").matches;
-    L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark ? "dark_all" : "light_all"}/{z}/{x}/{y}{r}.png`, {
+    // OpenStreetMap-Standardkacheln brauchen keinen Schlüssel; Graustufen kommen per CSS-Filter.
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
-      subdomains: "abcd",
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(this.map);
     this.pins = L.layerGroup().addTo(this.map);
     this.highlight = L.layerGroup().addTo(this.map);
