@@ -56,7 +56,7 @@ def parse(page):
                 url=f"{BASE}/{oid}",
                 title=title,
                 price=to_float(price.group(1).replace(",-", "")) if price else None,
-                price_note="Gesamtmiete laut Inserat",
+                price_note="Gesamtkosten laut Inserat",
                 area=to_float(area.group(1)) if area else None,
                 rooms=to_float(rooms.group(1)) if rooms else None,
                 postcode=postcode,
@@ -86,9 +86,9 @@ def parse_detail(page):
     address = rows.get("anschrift")
     address = ", ".join(p.strip() for p in htmllib.unescape(re.sub(r"<br\s*/?>", "\n", address)).split("\n") if p.strip()) if address else None
     note = None
-    for key in ("nettomiete", "hauptmietzins", "brutto-miete"):
+    for key, label in (("nettomiete", "Nettomiete"), ("hauptmietzins", "Hauptmietzins"), ("brutto-miete", "Bruttomiete")):
         if key in rows:
-            note = f"Gesamtmiete, davon {key.capitalize()} {_text(rows[key])}"
+            note = f"Gesamtkosten, davon {label} {_text(rows[key])}"
             break
     return {"images": images, "outdoor": outdoor, "address": address, "price_note": note}
 
