@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de-AT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        min-height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        background: #fff5eb;
+      }
+      .root {
+        width: 100%;
+        min-height: 100vh;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-rows: 1fr auto;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        padding: 20px;
+
+        @media (min-width: 960px) {
+          padding: 20px 60px;
+        }
+      }
+      @font-face {
+        font-display: swap;
+        font-family: "STMatilda Info Variable";
+        font-style: normal;
+        font-weight: 200 900;
+        src: url("https://b.staticfiles.at/s/fonts/stmatilda/v1/stmatilda-info.woff2")
+          format("woff2-variations");
+      }
+
+      /* Page styles */
+      body {
+        /* prettier-ignore */
+        --bg-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7,10l5,5,5-5Z" fill="%23212121" /></svg>');
+
+        font-family: var(--font-info, "STMatilda Info Variable");
+      }
+
+      /* Main container layout */
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+
+        @media (min-width: 960px) {
+          gap: clamp(30px, 5vw, 320px);
+          flex-direction: row;
+          text-align: left;
+          align-items: flex-start;
+        }
+      }
+
+      footer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 13px;
+
+        font-size: 13px;
+
+        padding: 20px 0;
+        opacity: 50%;
+
+        p {
+          margin: 0;
+          padding: 0;
+        }
+
+        strong {
+          font-size: 15px;
+        }
+      }
+
+      .footer-navs {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .app--footer--networknav {
+        flex-basis: 228px;
+      }
+
+      .app--footer--legalnav ul,
+      .app--footer--networknav ul {
+        display: flex;
+        flex-wrap: wrap;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .app--footer--legalnav li,
+      .app--footer--networknav li {
+        margin: 0;
+        list-style: none;
+
+        a {
+          text-decoration: none;
+          color: currentColor;
+        }
+
+        a:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .app--footer--networknav li:not(:last-child),
+      .app--footer--legalnav li:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      .app--footer--legalnav li:not(:last-child):after {
+        content: "/";
+        margin-left: 10px;
+      }
+
+      .text-section {
+        order: 2;
+
+        @media (min-width: 960px) {
+          order: 1;
+        }
+      }
+
+      .title {
+        color: hsla(0, 0%, 13%, 1);
+        /* --w5-heading */
+        font-family: var(--font-info, "STMatilda Info Variable");
+        font-size: 29px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 110%; /* 31.9px */
+        margin-block-start: 0;
+
+        @media (min-width: 960px) {
+          font-size: 46px;
+          line-height: 110%;
+        }
+      }
+
+      .paragraph {
+        margin: 0;
+        padding: 0;
+
+        color: hsla(0, 0%, 13%, 1);
+        /* --w5-info */
+        font-family: var(--font-info, "STMatilda Info Variable");
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%; /* 22.4px */
+
+        max-width: 618px;
+      }
+
+      .paragraph-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      ul {
+        margin: 0;
+      }
+
+      .error-image {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin-inline: auto;
+        margin-bottom: 40px;
+        order: 1;
+
+        svg,
+        img {
+          width: 80%;
+          max-width: 300px;
+          height: auto;
+          display: block;
+        }
+
+        @media (min-width: 960px) {
+          order: 2;
+          svg,
+          img {
+            width: 100%;
+            max-width: 350px;
+          }
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="root">
+      <main>
+        <div class="error-image">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="229"
+            height="110"
+            viewBox="0 0 229 110"
+            fill="none"
+          >
+            <rect width="69" height="110" rx="10" fill="black" />
+            <path
+              d="M41.45 72V64.25H47.1V60H41.45V50.2L36.85 51.9V60.15H26.95L36.8 37H31.7L21.7 61.05L22.75 64.25H36.8V72H41.45Z"
+              fill="white"
+            />
+            <rect x="79" width="70" height="110" rx="10" fill="black" />
+            <path
+              d="M113.05 72.35C121.1 72.35 125.6 66.3 125.6 54.3C125.6 42.55 121.2 36.65 113.35 36.65C105.3 36.65 100.85 42.7 100.85 54.65C100.85 66.4 105.2 72.35 113.05 72.35ZM106 54.4C106 45.35 108.25 41 113.15 41C118.15 41 120.45 45.4 120.45 54.55C120.45 63.65 118.2 68 113.25 68C108.25 68 106 63.6 106 54.4Z"
+              fill="white"
+            />
+            <rect x="159" width="70" height="110" rx="10" fill="black" />
+            <path
+              d="M192.75 72.55C188.85 72.55 185.05 71.25 181.8 68.8L183.35 64.95C186.15 67.05 189.2 68.05 192.25 68.05C196.6 68.05 199.55 66.05 199.55 62.05C199.55 57.6 195.75 55.3 187.95 55.3V51.45C194.75 51.45 198.25 49.1 198.25 45.6C198.25 42.5 195.6 40.9 192.25 40.9C189.7 40.9 186.8 41.7 184.15 43.2L182.5 39.75C185.5 37.8 189.2 36.5 193 36.5C198.4 36.5 203.25 39.05 203.25 44.85C203.25 48.95 200.85 51.8 196.7 53.1C201.7 54.3 204.75 57.2 204.75 62.2C204.75 68.6 199.6 72.55 192.75 72.55Z"
+              fill="white"
+            />
+          </svg>
+        </div>
+
+        <section class="text-section">
+          <h1 class="title">Da ist der Weg wohl zu weit...</h1>
+          <div class="paragraph-container">
+            <p class="paragraph">
+              Leider ist diese Seite nicht in deiner Region verfÃ¼gbar.
+            </p>
+            <p class="paragraph">
+              Gib uns noch etwas Zeit, bevor wir den internationalen Markt
+              erobern, danach sind wir gerne wieder fÃ¼r dich da!
+            </p>
+          </div>
+        </section>
+      </main>
+      <footer>
+        <p><strong>Â© STANDARD Verlagsgesellschaft m.b.H. 2023</strong></p>
+        <p>
+          Alle Rechte vorbehalten. Nutzung ausschlieÃlich fÃ¼r den privaten
+          Eigenbedarf.
+          <br />Eine Weiterverwendung und Reproduktion Ã¼ber den persÃ¶nlichen
+          Gebrauch hinaus ist nicht gestattet.
+        </p>
+        <div class="footer-navs">
+          <nav aria-label="Weitere Angebote" class="app--footer--networknav">
+            <ul>
+              <li>
+                <a
+                  href="https://www.derstandard.de"
+                  rel="external"
+                  title="derStandard.de"
+                  >derStandard.de</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.derstandard.at"
+                  rel="external"
+                  title="derStandard.at"
+                  >derStandard.at</a
+                >
+              </li>
+            </ul>
+          </nav>
+          <nav aria-label="Rechtliches" class="app--footer--legalnav">
+            <ul>
+              <li>
+                <a
+                  href="https://about.derstandard.at/impressum/"
+                  rel="external"
+                  title="Impressum &amp; Offenlegung"
+                  >Impressum &amp; Offenlegung</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.derstandard.at/datenschutz"
+                  rel="external"
+                  title="Datenschutz"
+                  >Datenschutz</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://about.derstandard.at/agb/"
+                  rel="external"
+                  title="AGB"
+                  >AGB</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
