@@ -22,6 +22,18 @@ Der Scraper sammelt bewusst etwas breiter (bis 1000 €, ab 40 m², ganz Wien). 
 
 Filter, gemerkte und ausgeblendete Angebote speichert der Browser lokal.
 
+### Karte
+
+Die Karte (oben rechts ein- und ausschaltbar) zeigt beim Überfahren eines Angebots die Lage: einen Punkt, wenn das Inserat eine Adresse hat, einen Kreis bei ungefährer Lage (ImmoScout24) und sonst nur den Bezirk. Die Bezirksgrenzen stammen aus Open Government Data Wien und werden beim ersten Scraper-Lauf nach `docs/data/bezirke.geojson` geladen.
+
+### Reserviert
+
+willhaben liefert den Status „reserviert“ direkt mit. Bei allen Plattformen wird zusätzlich der Titel nach „reserviert“, „Anfragestopp“, „bereits vergeben“ usw. durchsucht. Reservierte Angebote sind standardmäßig ausgeblendet.
+
+### Aktualisieren-Button
+
+Der Button startet den Workflow über die GitHub-API. Dafür braucht der Browser einmalig einen Fine-grained Personal Access Token (nur dieses Repo, Berechtigung *Actions: Read and write*). Er wird nur im `localStorage` des Browsers gespeichert. Nach dem Start fragt die Seite alle 20 Sekunden nach neuen Daten und lädt sie automatisch, sobald GitHub Pages sie ausliefert (meist nach 3 bis 4 Minuten).
+
 ## Hinweise
 
 - Preise stehen so drin, wie die Plattform sie liefert. Bei willhaben ist das meist die Gesamtmiete, bei immowelt die Nettokaltmiete.

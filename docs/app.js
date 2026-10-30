@@ -6,6 +6,7 @@ const DEFAULTS = {
   minRooms: 2,
   districts: [2, 3, 4, 5, 6, 7, 8, 12, 14, 15, 16, 20],
   outdoorOnly: false,
+  hideReserved: true,
   hideSwap: true,
   includeUnknown: false,
   showHidden: false,
@@ -14,6 +15,12 @@ const DEFAULTS = {
   sort: "new",
 };
 const PAGE_SIZE = 48;
+const REPO = (() => {
+  const owner = location.hostname.endsWith(".github.io") ? location.hostname.split(".")[0] : "gtobet";
+  const repo = location.hostname.endsWith(".github.io") ? location.pathname.split("/")[1] || "wien-wohnungen" : "wien-wohnungen";
+  return `${owner}/${repo}`;
+})();
+const WORKFLOW = "update.yml";
 
 const DISTRICT_NAMES = {
   1: "Innere Stadt", 2: "Leopoldstadt", 3: "Landstraße", 4: "Wieden", 5: "Margareten",
@@ -22,15 +29,21 @@ const DISTRICT_NAMES = {
   16: "Ottakring", 17: "Hernals", 18: "Währing", 19: "Döbling", 20: "Brigittenau",
   21: "Floridsdorf", 22: "Donaustadt", 23: "Liesing",
 };
+// Ungefähre Bezirksmitten, falls die Bezirksgrenzen nicht geladen werden können.
+const DISTRICT_CENTERS = {
+  1: [48.2085, 16.3721], 2: [48.2185, 16.4], 3: [48.1986, 16.3948], 4: [48.1925, 16.3696],
+  5: [48.1872, 16.3561], 6: [48.196, 16.3495], 7: [48.2025, 16.3489], 8: [48.2109, 16.3474],
+  9: [48.2253, 16.3561], 10: [48.158, 16.38], 11: [48.17, 16.44], 12: [48.176, 16.326],
+  13: [48.172, 16.255], 14: [48.205, 16.265], 15: [48.195, 16.325], 16: [48.213, 16.308],
+  17: [48.227, 16.295], 18: [48.23, 16.33], 19: [48.255, 16.335], 20: [48.237, 16.373],
+  21: [48.277, 16.41], 22: [48.23, 16.49], 23: [48.14, 16.29],
+};
 
 const ICONS = {
-  area: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 15v5h-5M4 4l7 7M20 20l-7-7"/></svg>',
-  rooms: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h9M12 3v18"/></svg>',
-  pin: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
-  prev: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
-  next: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
-  heart: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
-  external: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>',
+  prev: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  next: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
+  heart: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+  external: '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>',
 };
 
 const store = {
@@ -44,7 +57,8 @@ const store = {
   },
   set(key, value) {
     try {
-      localStorage.setItem(key, JSON.stringify(value));
+      if (value === null) localStorage.removeItem(key);
+      else localStorage.setItem(key, JSON.stringify(value));
     } catch {
       /* privater Modus o. ä. – dann eben ohne Speichern */
     }
@@ -54,6 +68,7 @@ const store = {
 let data = { listings: [], status: {}, updated: null };
 let state = { ...DEFAULTS, ...store.get("filters", {}) };
 let shown = PAGE_SIZE;
+let visibleItems = [];
 const favs = new Set(store.get("favs", []));
 const hidden = new Set(store.get("hidden", []));
 const previousVisit = store.get("lastVisit", null);
@@ -84,6 +99,8 @@ function isNew(item) {
 function allPlatforms() {
   return Object.keys(data.status || {});
 }
+
+/* ---------- Filter ---------- */
 
 function chip(label, pressed, onClick, title) {
   const b = document.createElement("button");
@@ -151,6 +168,7 @@ function matches(x) {
   if (state.favOnly && !favs.has(x.id)) return false;
   if (state.platforms && !state.platforms.includes(x.platform)) return false;
   if (state.hideSwap && x.swap) return false;
+  if (state.hideReserved && x.reserved) return false;
   if (state.outdoorOnly && !(x.outdoor && x.outdoor.length)) return false;
   if (x.district == null || !state.districts.includes(x.district)) return false;
   const check = (value, ok) => (value == null ? state.includeUnknown : ok(value));
@@ -166,6 +184,8 @@ const SORTS = {
   sqm: (a, b) => (a.price && a.area ? a.price / a.area : 1e9) - (b.price && b.area ? b.price / b.area : 1e9),
   area: (a, b) => (b.area ?? 0) - (a.area ?? 0),
 };
+
+/* ---------- Karten (Listing) ---------- */
 
 function gallery(x) {
   const images = (x.images && x.images.length ? x.images : x.image ? [x.image] : []).filter(Boolean);
@@ -226,14 +246,14 @@ function gallery(x) {
 
 function card(x) {
   const li = document.createElement("li");
-  li.className = "card" + (hidden.has(x.id) ? " is-hidden" : "");
+  li.className = "card" + (hidden.has(x.id) ? " is-hidden" : "") + (x.reserved ? " is-reserved" : "");
+  li.dataset.id = x.id;
 
   const g = gallery(x);
   const tags = document.createElement("div");
   tags.className = "overlay-tags";
   tags.innerHTML =
-    (isNew(x) ? '<span class="badge new">Neu</span>' : "") +
-    (x.outdoor && x.outdoor.length ? `<span class="badge out">${esc(x.outdoor.join(" · "))}</span>` : "");
+    (isNew(x) ? '<span class="badge new">Neu</span>' : "") + (x.reserved ? '<span class="badge reserved">Reserviert</span>' : "");
   const fav = document.createElement("button");
   fav.type = "button";
   fav.className = "fav";
@@ -246,20 +266,21 @@ function card(x) {
   const body = document.createElement("div");
   body.className = "body";
   const sqm = x.price && x.area ? `<span class="sqm">${fmtSqm.format(x.price / x.area)} €/m²</span>` : "";
+  const facts = [
+    x.area != null ? `${fmtNum.format(x.area)} m²` : "",
+    x.rooms != null ? `${fmtNum.format(x.rooms)} Zimmer` : "",
+    x.district ? `${x.district}., ${DISTRICT_NAMES[x.district]}` : "",
+  ].filter(Boolean);
   body.innerHTML = `
     <div class="price-row">
       <span class="price" title="${esc(x.price_note)}">${x.price != null ? fmtEuro.format(x.price) : "Preis auf Anfrage"}</span>
       ${sqm}
     </div>
-    <div class="facts">
-      ${x.area != null ? `<span>${ICONS.area}${fmtNum.format(x.area)} m²</span>` : ""}
-      ${x.rooms != null ? `<span>${ICONS.rooms}${fmtNum.format(x.rooms)} Zi.</span>` : ""}
-      ${x.district ? `<span>${ICONS.pin}${x.district}., ${esc(DISTRICT_NAMES[x.district])}</span>` : ""}
-    </div>
+    <div class="facts">${facts.map((f) => `<span>${esc(f)}</span>`).join("")}</div>
+    ${x.outdoor && x.outdoor.length ? `<div class="outdoor">Mit ${esc(x.outdoor.join(", "))}</div>` : ""}
     <p class="title">${esc(cleanTitle(x.title))}</p>
     <div class="foot">
-      <span><span class="platform">${esc(x.platform)}</span> · seit ${fmtDay.format(new Date(x.first_seen))}</span>
-      ${x.swap ? '<span class="tag-swap">Tausch</span>' : ""}
+      <span>${esc(x.platform)} · seit ${fmtDay.format(new Date(x.first_seen))}${x.swap ? " · Tausch" : ""}</span>
       <span class="spacer"></span>
       <button type="button" class="ghost" data-act="hide">${hidden.has(x.id) ? "Einblenden" : "Ausblenden"}</button>
       <a class="open" href="${esc(x.url)}" target="_blank" rel="noopener">Ansehen ${ICONS.external}</a>
@@ -269,6 +290,7 @@ function card(x) {
     render();
   });
 
+  li.addEventListener("mouseenter", () => focusListing(x));
   li.append(g, body);
   return li;
 }
@@ -291,8 +313,13 @@ function summary() {
 
 function render() {
   const items = data.listings.filter(matches).sort(SORTS[state.sort] || SORTS.new);
+  visibleItems = items;
   const fresh = items.filter(isNew).length;
-  $("count").innerHTML = `${items.length} ${items.length === 1 ? "Wohnung" : "Wohnungen"}` + (fresh ? `<small>${fresh} neu</small>` : "");
+  const reservedHidden = state.hideReserved ? data.listings.filter((x) => x.reserved && matches({ ...x, reserved: false })).length : 0;
+  $("count").innerHTML =
+    `${items.length} ${items.length === 1 ? "Wohnung" : "Wohnungen"}` +
+    (fresh ? `<small>${fresh} neu</small>` : "") +
+    (reservedHidden ? `<small>${reservedHidden} reservierte ausgeblendet</small>` : "");
   $("filterSummary").textContent = summary();
   const list = $("list");
   if (!items.length) {
@@ -303,6 +330,8 @@ function render() {
   const more = $("more");
   more.hidden = items.length <= shown;
   more.textContent = `Weitere ${Math.min(PAGE_SIZE, items.length - shown)} von ${items.length - shown} anzeigen`;
+  mapView.refresh();
+  observeCards();
 }
 
 function renderMeta() {
@@ -310,8 +339,8 @@ function renderMeta() {
   $("sources").innerHTML = Object.entries(data.status || {})
     .map(([name, s]) =>
       s.ok
-        ? `<span class="source" title="${s.count} Angebote im Suchraum"><b>${esc(name)}</b></span>`
-        : `<span class="source bad" title="${esc(s.error)}"><b>${esc(name)}</b> nicht erreichbar</span>`
+        ? `<span class="source" title="${s.count} Angebote im Suchraum">${esc(name)}</span>`
+        : `<span class="source bad" title="${esc(s.error)}">${esc(name)} nicht erreichbar</span>`
     )
     .join("");
 }
@@ -320,6 +349,252 @@ function changed() {
   store.set("filters", state);
   shown = PAGE_SIZE;
   render();
+}
+
+/* ---------- Karte ---------- */
+
+const mapView = {
+  map: null,
+  pins: null,
+  highlight: null,
+  districts: null,
+  districtLayer: null,
+  active: null,
+
+  enabled() {
+    return $("mapToggle").checked && typeof L !== "undefined";
+  },
+
+  init() {
+    if (this.map || typeof L === "undefined") return;
+    this.map = L.map("map", { zoomControl: true, scrollWheelZoom: true, attributionControl: true }).setView([48.2082, 16.3738], 12);
+    const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+    L.tileLayer(`https://{s}.basemaps.cartocdn.com/${dark ? "dark_all" : "light_all"}/{z}/{x}/{y}{r}.png`, {
+      maxZoom: 19,
+      subdomains: "abcd",
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+    }).addTo(this.map);
+    this.pins = L.layerGroup().addTo(this.map);
+    this.highlight = L.layerGroup().addTo(this.map);
+    fetch("data/bezirke.geojson")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((geo) => {
+        if (!geo) return;
+        this.districts = geo;
+        this.refresh();
+      })
+      .catch(() => {});
+  },
+
+  icon(cls) {
+    return L.divIcon({ className: "", html: `<div class="pin ${cls}"></div>`, iconSize: null });
+  },
+
+  refresh() {
+    if (!this.enabled()) return;
+    this.init();
+    this.map.invalidateSize();
+    this.pins.clearLayers();
+    if (this.districtLayer) this.districtLayer.remove();
+    if (this.districts) {
+      const line = getComputedStyle(document.documentElement).getPropertyValue("--muted").trim() || "#888";
+      this.districtLayer = L.geoJSON(this.districts, {
+        style: (f) => ({
+          color: line,
+          weight: state.districts.includes(f.properties.nr) ? 1.2 : 0.5,
+          opacity: state.districts.includes(f.properties.nr) ? 0.8 : 0.3,
+          fill: false,
+        }),
+        interactive: false,
+      }).addTo(this.map);
+    }
+    for (const x of visibleItems) {
+      if (!x.geo || !x.geo.exact) continue;
+      const m = L.marker([x.geo.lat, x.geo.lon], { icon: this.icon("dim"), keyboard: false });
+      m.on("click", () => {
+        const el = document.querySelector(`.card[data-id="${CSS.escape(x.id)}"]`);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "center" });
+        this.show(x);
+      });
+      this.pins.addLayer(m);
+    }
+    if (this.active) this.show(this.active, false);
+  },
+
+  show(x, pan = true) {
+    this.active = x;
+    if (!this.enabled()) return;
+    this.init();
+    this.highlight.clearLayers();
+    let bounds = null;
+    let label = "";
+    if (x.geo && x.geo.exact) {
+      const ll = [x.geo.lat, x.geo.lon];
+      L.marker(ll, { icon: this.icon("big"), interactive: false, zIndexOffset: 1000 }).addTo(this.highlight);
+      bounds = L.latLng(ll).toBounds(500);
+      label = "Genaue Lage laut Inserat";
+    } else if (x.geo && x.geo.radius) {
+      const c = L.circle([x.geo.lat, x.geo.lon], { radius: x.geo.radius, color: "#1a1a1a", weight: 1.5, fillOpacity: 0.12 }).addTo(this.highlight);
+      bounds = c.getBounds();
+      label = "Ungefähre Lage laut Inserat";
+    } else if (x.district) {
+      const f = this.districts && this.districts.features.find((f) => f.properties.nr === x.district);
+      if (f) {
+        const layer = L.geoJSON(f, { style: { color: "#1a1a1a", weight: 2, fillColor: "#1a1a1a", fillOpacity: 0.12 } }).addTo(this.highlight);
+        bounds = layer.getBounds();
+      } else {
+        const c = L.circle(DISTRICT_CENTERS[x.district], { radius: 900, color: "#1a1a1a", weight: 1.5, fillOpacity: 0.12 }).addTo(this.highlight);
+        bounds = c.getBounds();
+      }
+      label = `Nur Bezirk bekannt: ${x.district}., ${DISTRICT_NAMES[x.district]}`;
+    }
+    $("mapHint").textContent = label || "Keine Ortsangabe";
+    if (pan && bounds && !this.map.getBounds().contains(bounds)) {
+      this.map.flyToBounds(bounds, { maxZoom: 14, duration: 0.4, padding: [30, 30] });
+    }
+  },
+};
+
+function focusListing(x) {
+  document.querySelectorAll(".card.active").forEach((el) => el.classList.remove("active"));
+  const el = document.querySelector(`.card[data-id="${CSS.escape(x.id)}"]`);
+  if (el) el.classList.add("active");
+  mapView.show(x);
+}
+
+// Auf Touch-Geräten gibt es kein Hover: dort zeigt die Karte das Angebot, das gerade oben im Bild ist.
+let cardObserver = null;
+function observeCards() {
+  if (cardObserver) cardObserver.disconnect();
+  if (matchMedia("(hover: hover)").matches || !mapView.enabled()) return;
+  const byId = new Map(visibleItems.map((x) => [x.id, x]));
+  cardObserver = new IntersectionObserver(
+    (entries) => {
+      const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (hit && byId.has(hit.target.dataset.id)) focusListing(byId.get(hit.target.dataset.id));
+    },
+    { rootMargin: "-45% 0px -45% 0px" }
+  );
+  document.querySelectorAll(".card").forEach((el) => cardObserver.observe(el));
+}
+
+function setMap(on) {
+  $("mapToggle").checked = on;
+  store.set("showMap", on);
+  $("mapPane").hidden = !on;
+  $("layout").classList.toggle("with-map", on);
+  if (on) {
+    requestAnimationFrame(() => mapView.refresh());
+  }
+  observeCards();
+}
+
+/* ---------- Aktualisieren ---------- */
+
+const refresher = {
+  timer: null,
+
+  status(text) {
+    const el = $("refreshStatus");
+    el.hidden = !text;
+    el.textContent = text || "";
+    syncTopHeight();
+  },
+
+  busy(on) {
+    const b = $("refresh");
+    b.disabled = on;
+    b.classList.toggle("spinning", on);
+  },
+
+  async api(path, opts = {}) {
+    const token = store.get("ghToken", null);
+    return fetch(`https://api.github.com/repos/${REPO}${path}`, {
+      ...opts,
+      headers: { Accept: "application/vnd.github+json", Authorization: `Bearer ${token}`, "X-GitHub-Api-Version": "2022-11-28", ...(opts.headers || {}) },
+    });
+  },
+
+  async start() {
+    if (!store.get("ghToken", null)) {
+      $("actionsLink").href = `https://github.com/${REPO}/actions/workflows/${WORKFLOW}`;
+      $("tokenDialog").showModal();
+      return;
+    }
+    this.busy(true);
+    this.status("Suche wird gestartet …");
+    const started = Date.now();
+    try {
+      const r = await this.api(`/actions/workflows/${WORKFLOW}/dispatches`, { method: "POST", body: JSON.stringify({ ref: "main" }) });
+      if (r.status === 401 || r.status === 403 || r.status === 404) {
+        store.set("ghToken", null);
+        throw new Error("Der GitHub-Schlüssel wurde abgelehnt. Bitte neu einrichten.");
+      }
+      if (!r.ok) throw new Error(`GitHub antwortet mit Fehler ${r.status}.`);
+    } catch (e) {
+      this.busy(false);
+      this.status(e.message || "Suche konnte nicht gestartet werden.");
+      return;
+    }
+    this.status("Alle Plattformen werden durchsucht. Das dauert etwa 3 bis 4 Minuten, du kannst die Seite offen lassen.");
+    this.poll(started);
+  },
+
+  poll(started) {
+    clearTimeout(this.timer);
+    const tick = async () => {
+      const elapsed = Date.now() - started;
+      try {
+        const runs = await this.api(`/actions/workflows/${WORKFLOW}/runs?per_page=1&event=workflow_dispatch`).then((r) => (r.ok ? r.json() : null));
+        const run = runs && runs.workflow_runs && runs.workflow_runs[0];
+        if (run && new Date(run.created_at).getTime() > started - 60e3 && run.status === "completed" && run.conclusion !== "success") {
+          this.busy(false);
+          this.status(`Die Suche ist auf GitHub fehlgeschlagen (${run.conclusion}). Details: github.com/${REPO}/actions`);
+          return;
+        }
+        const fresh = await loadData();
+        if (fresh && new Date(data.updated).getTime() > started - 60e3) {
+          this.busy(false);
+          this.status(`Fertig: Daten von ${fmtDate.format(new Date(data.updated))} geladen.`);
+          setTimeout(() => this.status(""), 8000);
+          return;
+        }
+      } catch {
+        /* nächster Versuch */
+      }
+      if (elapsed > 12 * 60e3) {
+        this.busy(false);
+        this.status("Das dauert ungewöhnlich lange. Lade die Seite in ein paar Minuten neu.");
+        return;
+      }
+      const mins = Math.floor(elapsed / 60e3);
+      this.status(`Alle Plattformen werden durchsucht … (${mins > 0 ? `${mins} min` : "gerade gestartet"}). Neue Daten erscheinen automatisch.`);
+      this.timer = setTimeout(tick, 20e3);
+    };
+    this.timer = setTimeout(tick, 30e3);
+  },
+};
+
+/* ---------- Laden & Events ---------- */
+
+async function loadData() {
+  // Der Zeitstempel umgeht den Zwischenspeicher von GitHub Pages.
+  const r = await fetch(`data/listings.json?t=${Date.now()}`, { cache: "no-store" });
+  if (!r.ok) throw new Error(r.status);
+  const json = await r.json();
+  const changedData = json.updated !== data.updated;
+  data = json;
+  if (changedData) {
+    renderMeta();
+    buildChips();
+    render();
+  }
+  return changedData;
+}
+
+function syncTopHeight() {
+  const h = document.querySelector(".topbar").offsetHeight;
+  document.documentElement.style.setProperty("--top", `${h}px`);
 }
 
 const onInput = () => {
@@ -343,16 +618,22 @@ $("filterToggle").addEventListener("click", (e) => {
   const open = form.classList.toggle("open");
   e.currentTarget.setAttribute("aria-expanded", open);
 });
+$("mapToggle").addEventListener("change", (e) => setMap(e.target.checked));
+$("refresh").addEventListener("click", () => refresher.start());
+$("tokenDialog").addEventListener("close", () => {
+  const dlg = $("tokenDialog");
+  const token = $("tokenInput").value.trim();
+  $("tokenInput").value = "";
+  if (dlg.returnValue === "save" && token) {
+    store.set("ghToken", token);
+    refresher.start();
+  }
+});
+addEventListener("resize", syncTopHeight);
 
-fetch("data/listings.json", { cache: "no-cache" })
-  .then((r) => (r.ok ? r.json() : Promise.reject(new Error(r.status))))
-  .then((json) => {
-    data = json;
-    renderMeta();
-    buildChips();
-    syncForm();
-    render();
-  })
-  .catch(() => {
-    $("meta").textContent = "Daten konnten nicht geladen werden.";
-  });
+syncTopHeight();
+syncForm();
+setMap(store.get("showMap", true));
+loadData().catch(() => {
+  $("meta").textContent = "Daten konnten nicht geladen werden.";
+});
