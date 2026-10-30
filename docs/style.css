@@ -454,21 +454,59 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .shadow-stage { position: relative; flex: 1; display: flex; }
 .shadow-pane iframe { flex: 1; width: 100%; border: 0; background: var(--surface-2); }
 /* Shadowmap opens centred on the listing. The free version cannot highlight a building, so a
-   yellow ring marks the centre until the viewer starts moving the 3D view. */
+   yellow pin marks the centre until the viewer starts moving the 3D view. */
 .shadow-pin {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 34px;
-  height: 34px;
-  margin: -17px 0 0 -17px;
-  border: 3px solid #fcc419;
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, .35), inset 0 0 0 2px rgba(0, 0, 0, .2);
+  width: 0;
+  height: 0;
   pointer-events: none;
-  animation: shadow-pin 1.6s ease-in-out infinite;
+  animation: shadow-pin-in .35s ease-out both;
 }
-@keyframes shadow-pin { 50% { transform: scale(1.25); opacity: .7; } }
+/* Halo on the spot itself */
+.shadow-pin::before {
+  content: "";
+  position: absolute;
+  left: -22px;
+  top: -22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(252, 196, 25, .35);
+  border: 2px solid rgba(252, 196, 25, .9);
+  animation: shadow-halo 2s ease-out infinite;
+}
+/* Drop pin whose tip sits on the spot */
+.shadow-pin::after {
+  content: "";
+  position: absolute;
+  left: -13px;
+  top: -33px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: radial-gradient(circle at 50% 50%, #fff 0 4px, #fcc419 5px);
+  border: 2px solid #1a1a1a;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .4);
+}
+.shadow-pin span {
+  position: absolute;
+  left: 0;
+  top: -64px;
+  transform: translateX(-50%);
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #1a1a1a;
+  color: #fff;
+  font-size: .72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+@keyframes shadow-halo { from { transform: scale(.4); opacity: 1; } to { transform: scale(1.3); opacity: 0; } }
+@keyframes shadow-pin-in { from { opacity: 0; transform: translateY(-12px); } }
+.shadow-back { padding-left: 8px !important; gap: 4px; }
 .pin {
   width: 12px;
   height: 12px;
@@ -512,7 +550,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
     z-index: 500;
     height: 260px;
   }
-  .layout.with-map .map-pane.shadow-on { height: 70vh; }
   .layout.with-map .results { grid-column: 2; }
   .map-hint { display: none; }
 }
@@ -526,7 +563,19 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
   .results { order: 2; min-width: 0; }
   .layout.with-map .map-pane { top: var(--top); height: 220px; margin: 0 -16px; }
   .layout.with-map .map { border-radius: 0; border-left: 0; border-right: 0; }
-  .layout.with-map .map-pane.shadow-on { height: 70vh; }
+  /* On phones Shadowmap gets the whole screen: inside the small sticky pane its controls were cut
+     off and the way back scrolled out of view. */
+  .shadow-pane {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    border: 0;
+    border-radius: 0;
+    padding-top: env(safe-area-inset-top);
+  }
+  .shadow-bar { padding: 8px 12px; gap: 8px; }
+  .shadow-bar .btn { height: 38px; }
+  html.shadow-open, html.shadow-open body { overflow: hidden; }
   .sidebar { position: static; max-height: none; overflow: visible; }
   .filter-toggle {
     display: flex;
