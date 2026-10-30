@@ -43,6 +43,8 @@ def main():
                 item["last_seen"] = now
                 listings.append(item)
             status[mod.NAME] = {"ok": True, "count": len(seen), "checked": now}
+            if getattr(mod, "INFO", None):
+                status[mod.NAME]["info"] = dict(mod.INFO)
             print(f"  {len(seen)} Angebote")
         except Exception as e:  # one broken platform must not take the others down
             traceback.print_exc()

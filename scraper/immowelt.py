@@ -72,20 +72,27 @@ def parse(html):
     return out, int(props.get("totalCount") or 0)
 
 
+INFO = {}
+
+
 def scrape(session: Session):
+    INFO.clear()
     best = None
     for template in SEARCH_VARIANTS:
         try:
             found, total = parse(session.get(template.format(price=MAX_PRICE, area=MIN_AREA, page=1)).text)
         except Exception as e:
             print(f"  immowelt: Variante fehlgeschlagen ({e})")
+            INFO[template.split("?")[1].split("&")[0]] = {"error": str(e)[:120]}
             continue
         print(f"  immowelt: {total} Treffer mit {template.split('?')[1]}")
+        INFO[template.split("?")[1].split("&")[0]] = {"total": total, "page1": len(found)}
         if best is None or total < best[2]:
             best = (template, found, total)
     if best is None:
         raise RuntimeError("keine Suchvariante erreichbar")
     template, items, total = best
+    INFO["pages"] = 1
     # Without working filters this is the newest ~450 listings of all Vienna, which is still useful.
     for page in range(2, MAX_PAGES + 1):
         if len(items) >= total:
@@ -94,4 +101,6 @@ def scrape(session: Session):
         if not found:
             break
         items.extend(found)
+        INFO["pages"] = page
+    INFO["raw"] = len(items)
     return [x for x in items if (x["price"] is None or x["price"] <= MAX_PRICE) and (x["area"] is None or x["area"] >= MIN_AREA)]
