@@ -1,0 +1,17 @@
+name: probe-shadow
+on:
+  push:
+    branches: [claude/probe-shadow]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p probe
+          for u in https://app.shadowmap.org/ https://shadowmap.org/ https://shademap.app/ ; do echo "== $u"; curl -sSIL -A "Mozilla/5.0" "$u" | grep -iE "^HTTP|x-frame|content-security|frame-ancestors"; done > probe/headers.txt 2>&1
+          curl -sSL -A "Mozilla/5.0" https://app.shadowmap.org/ | head -c 4000 > probe/app.html
+          git config user.name github-actions; git config user.email github-actions@users.noreply.github.com
+          git add probe && git commit -m probe && git push
