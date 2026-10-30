@@ -21,6 +21,6 @@ jobs:
             echo "$i $u -> $code" >> probe/index.txt
             sleep 1
           done < probe-urls.txt
-          python3 probe-shadow.py 'https://www.willhaben.at/iad/immobilien/d/mietwohnungen/wien/wien-1210-floridsdorf/wie-im-hotel-moeblierte-neubauwohnung-mit-balkon-in-ruhelage-keine-abloese-open-house-am-1-11-um-15-00-uhr-1764565898/' || true
+          python3 probe-shadow.py || true
           git config user.name github-actions; git config user.email github-actions@users.noreply.github.com
           git add probe && git commit -m probe && git push
