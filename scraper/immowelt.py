@@ -5,16 +5,15 @@ from common import MAX_PRICE, MIN_AREA, Session, is_swap, listing, outdoor_from_
 from lzstring import decompress_from_base64
 
 NAME = "immowelt"
-# The classified-search endpoint is blocked for bots, the SEO search page is not. Which filter
-# parameter names it honours is not documented, so try a few and keep the one with the fewest hits.
-BASE = "https://www.immowelt.at/suche/mieten/wohnung/wien/wien-1010/ad08at2093"
+# The filterable classified-search endpoint answers bots with 403 and the SEO search page ignores
+# filter parameters, so this reads the first pages of all Vienna rentals and filters locally.
+# The filter parameters stay in the URL in case immowelt starts honouring them; the variant with
+# the fewest hits wins.
 SEARCH_VARIANTS = [
-    BASE + "?priceMax={price}&spaceMin={area}&order=DateDesc&page={page}",
-    "https://www.immowelt.at/suche/mieten/wohnung/guenstig/wien/wien-1010/ad08at2093?order=DateDesc&page={page}",
-    "https://www.immowelt.at/classified-search?distributionTypes=Rent&estateTypes=Apartment"
-    "&locations=AD08AT2093&priceMax={price}&spaceMin={area}&order=DateDesc&page={page}",
+    "https://www.immowelt.at/suche/mieten/wohnung/wien/wien-1010/ad08at2093"
+    "?priceMax={price}&spaceMin={area}&order=DateDesc&page={page}",
 ]
-MAX_PAGES = 15
+MAX_PAGES = 10
 
 SUBTYPE_OUTDOOR = {"TERRACE": "Terrasse", "GARDEN": "Garten", "BALCONY": "Balkon"}
 
@@ -95,7 +94,6 @@ def scrape(session: Session):
         raise RuntimeError("keine Suchvariante erreichbar")
     template, items, total = best
     INFO["pages"] = 1
-    # Without working filters this is the newest ~450 listings of all Vienna, which is still useful.
     for page in range(2, MAX_PAGES + 1):
         if len(items) >= total:
             break

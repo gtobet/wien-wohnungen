@@ -5,9 +5,6 @@ on:
     # 05:15, 11:15 und 17:15 UTC (Wien: 06:15/12:15/18:15 im Winter, eine Stunde später im Sommer)
     - cron: "15 5,11,17 * * *"
   workflow_dispatch:
-  push:
-    branches: [claude/wohnungs-app]
-    paths: [scraper/**, .github/workflows/update.yml]
 
 permissions:
   contents: write
