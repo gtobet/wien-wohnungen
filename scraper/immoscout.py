@@ -1,7 +1,7 @@
 import json
 import re
 
-from common import MAX_PRICE, MIN_AREA, Session, is_swap, listing, outdoor_from_text, to_float
+from common import MAX_PRICE, MIN_AREA, Session, is_reserved, is_swap, listing, outdoor_from_text, to_float
 
 NAME = "ImmoScout24"
 BASE = "https://www.immobilienscout24.at"
@@ -43,6 +43,12 @@ def parse(html):
             if extra not in outdoor:
                 outdoor.append(extra)
         address = h.get("addressString") or ""
+        loc = h.get("location") or {}
+        geo = None
+        if loc.get("lat") and loc.get("lon"):
+            geo = {"lat": loc["lat"], "lon": loc["lon"], "exact": loc.get("type") == "POINT"}
+            if loc.get("radius"):
+                geo["radius"] = loc["radius"]
         pc = re.search(r"\b(1\d\d0)\b", address)
         pics = [h.get("primaryPictureImageProps") or {}] + list(h.get("thumbnailPicturesImageProps") or [])
         images = [_large(p["src"]) for p in pics if p.get("src")]
@@ -58,6 +64,8 @@ def parse(html):
                 rooms=to_float(h.get("numberOfRooms")),
                 postcode=pc.group(1) if pc else None,
                 address=address,
+                geo=geo,
+                reserved="RESERVED" in badges or is_reserved(h.get("headline")),
                 outdoor=outdoor,
                 swap=is_swap(h.get("headline")),
                 images=images,

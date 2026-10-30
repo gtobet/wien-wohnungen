@@ -1,7 +1,7 @@
 import json
 import re
 
-from common import MAX_PRICE, MIN_AREA, Session, is_swap, listing, outdoor_from_text, to_float
+from common import MAX_PRICE, MIN_AREA, Session, is_reserved, is_swap, listing, outdoor_from_text, to_float
 from lzstring import decompress_from_base64
 
 NAME = "immowelt"
@@ -66,6 +66,7 @@ def parse(html):
                 address=" ".join(x for x in [addr.get("street"), addr.get("zipCode"), addr.get("city")] if x),
                 outdoor=outdoor,
                 swap=is_swap(headline, desc.get("description")),
+                reserved=is_reserved(headline),
                 images=[img["url"] for img in images if img.get("url")],
                 published=(c.get("metadata") or {}).get("creationDate"),
             )

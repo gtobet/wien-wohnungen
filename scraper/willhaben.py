@@ -1,7 +1,7 @@
 import json
 import re
 
-from common import MAX_PRICE, MIN_AREA, Session, is_swap, listing, outdoor_from_text, to_float
+from common import MAX_PRICE, MIN_AREA, Session, is_reserved, is_swap, listing, outdoor_from_text, to_float
 
 NAME = "willhaben"
 SEARCH = (
@@ -35,6 +35,13 @@ def parse(html):
             if extra not in outdoor:
                 outdoor.append(extra)
         seo = _first(a, "SEO_URL")
+        address = _first(a, "ADDRESS")
+        geo = None
+        coords = (_first(a, "COORDINATES") or "").split(",")
+        if len(coords) == 2 and to_float(coords[0]) and to_float(coords[1]):
+            # Without a street address the coordinates are only the postcode area.
+            geo = {"lat": float(coords[0]), "lon": float(coords[1]), "exact": bool(address)}
+        status = (ad.get("advertStatus") or {}).get("id")
         images = [
             "https://cache.willhaben.at/mmo/" + re.sub(r"\.jpg$", "_hoved.jpg", p)
             for p in (_first(a, "ALL_IMAGE_URLS") or "").split(";")
@@ -51,7 +58,9 @@ def parse(html):
                 area=to_float(_first(a, "ESTATE_SIZE/LIVING_AREA") or _first(a, "ESTATE_SIZE")),
                 rooms=to_float(_first(a, "NUMBER_OF_ROOMS")),
                 postcode=_first(a, "POSTCODE"),
-                address=_first(a, "ADDRESS"),
+                address=address,
+                geo=geo,
+                reserved=status == "reserved" or is_reserved(title),
                 outdoor=outdoor,
                 swap=is_swap(title, body),
                 images=images,

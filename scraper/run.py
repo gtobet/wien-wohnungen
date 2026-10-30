@@ -16,9 +16,40 @@ from common import Session  # noqa: E402
 
 PLATFORMS = [willhaben, immoscout, immowelt, derstandard]
 OUT = pathlib.Path(__file__).resolve().parent.parent / "docs" / "data" / "listings.json"
+DISTRICTS = OUT.parent / "bezirke.geojson"
+DISTRICTS_URL = (
+    "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0"
+    "&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json"
+)
+
+
+def fetch_districts():
+    """Bezirksgrenzen (Open Government Data Wien) einmalig für die Karte holen."""
+    if DISTRICTS.exists():
+        return
+    try:
+        geo = Session(delay=0).get(DISTRICTS_URL).json()
+    except Exception as e:
+        print(f"Bezirksgrenzen nicht geladen: {e}")
+        return
+
+    def rnd(coords):
+        if isinstance(coords[0], (int, float)):
+            return [round(coords[0], 5), round(coords[1], 5)]
+        return [rnd(c) for c in coords]
+
+    features = []
+    for f in geo.get("features", []):
+        nr = int(f["properties"].get("BEZNR") or 0)
+        if nr:
+            g = f["geometry"]
+            features.append({"type": "Feature", "properties": {"nr": nr}, "geometry": {"type": g["type"], "coordinates": rnd(g["coordinates"])}})
+    DISTRICTS.write_text(json.dumps({"type": "FeatureCollection", "features": features}, separators=(",", ":")))
+    print(f"Bezirksgrenzen gespeichert ({len(features)} Bezirke)")
 
 
 def main():
+    fetch_districts()
     now = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     previous = {}
     if OUT.exists():

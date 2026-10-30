@@ -27,6 +27,11 @@ _OUTDOOR_RE = re.compile(
     r"(?<![a-zäöü])(dach)?(balkon|terrasse|loggia|eigengarten|garten|freifl(?:ä|ae)che)", re.I
 )
 _NOT_OUTDOOR_RE = re.compile(r"wintergarten|gartenblick|ohne (balkon|terrasse|freifl)", re.I)
+_RESERVED_RE = re.compile(
+    r"reserviert|anfrage(?:n)?[ -]?stopp|bereits vergeben|schon vergeben|nicht mehr verf(?:ü|ue)gbar"
+    r"|keine (?:weiteren |neuen )?anfragen",
+    re.I,
+)
 _SWAP_RE = re.compile(r"wohnticket|wohnungstausch|tauschwohnung|zum tausch|tausche", re.I)
 
 
@@ -62,6 +67,10 @@ def outdoor_from_text(*texts):
 
 def is_swap(*texts):
     return any(t and _SWAP_RE.search(t) for t in texts)
+
+
+def is_reserved(*texts):
+    return any(t and _RESERVED_RE.search(t) for t in texts)
 
 
 def district_from_postcode(postcode):
@@ -105,6 +114,8 @@ def listing(**kw):
         "address": None,
         "outdoor": [],
         "swap": False,
+        "reserved": False,
+        "geo": None,  # {"lat", "lon", "exact": bool, "radius": Meter bei ungefährer Lage}
         "image": None,
         "images": [],
         "published": None,
