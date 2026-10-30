@@ -1,338 +1,1121 @@
 <!DOCTYPE html>
-<html lang="de-at">
+<html lang="de-DE">
 <head>
-	<!-- Head -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description">
-<meta name="robots" content="noindex,nofollow">
-<title>Vor&#xFC;bergehend nicht verf&#xFC;gbar</title>
-<link rel="canonical">
+    <meta charset="utf-8">
 
-<!-- Icons -->
-<link rel="icon" sizes="32x32" href="/media/images/wohnnet/icon_32_32.png">
-<link rel="icon" sizes="192x192" href="/media/images/wohnnet/icon_192_192.png">
-<link rel="apple-touch-icon" sizes="32x32" href="/media/images/wohnnet/icon_32_32_white.png">
-<link rel="apple-touch-icon" sizes="192x192" href="/media/images/wohnnet/icon_192_192_white.png">
-<link rel="icon" href="/media/images/wohnnet/favicon.ico">
+<!-- 
+	Based on the TYPO3 Bootstrap Package by Benjamin Kott - https://www.bootstrap-package.com/
 
+	This website is powered by TYPO3 - inspiring people to share!
+	TYPO3 is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.
+	TYPO3 is copyright 1998-2026 of Kasper Skaarhoj. Extensions are copyright of their respective owners.
+	Information and contribution at https://typo3.org/
+-->
 
-<script src="https://ccm.wohnnet.at/ccm19/public/app.js?apiKey=7d6f004ba43c7399a9653babee2f2cb746681fc4350addbc&amp;domain=fce82c6"
-        referrerpolicy="origin">
-</script>
+<link rel="icon" href="/_assets/ec4c443bcd3b6d2b9df26a44e6782c8e/Icons/favicon.ico" type="image/vnd.microsoft.icon">
+<title>Wohnungssuche</title>
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<meta name="generator" content="TYPO3 CMS">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="mobile-web-app-capable" content="no">
+<meta name="google" content="notranslate">
 
-<!-- Pagination -->
-
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Encode+Sans:300,400,500&display=swap">
-<link rel="preconnect" href="https://www.google.com">
-<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
-
-<!-- Preconnect to used services -->
-<link rel="preconnect" href="https://api.wohnnet.at" crossorigin>
+<link rel="stylesheet" href="/typo3temp/assets/compressed/merged-05701ba59b4283ff22af6c57890ec809-fb24629d002f75695499fa23aea4fb29.css?1791824391" media="all">
+<link rel="stylesheet" href="/typo3temp/assets/compressed/merged-d77b8e20ea2f9f415ac7f9b5d1c60511-10e134c04835104154d814a85224fa22.css?1791824393" media="all">
+<link href="/_assets/ec4c443bcd3b6d2b9df26a44e6782c8e/ContentBlocks/cloonar/livi/Frontend.css?1791824250" rel="stylesheet" >
 
 
-<!-- Bundled styles -->
-
-    <link rel="preload" as="style" href="/media/styles/_bundles/bundle.min.css">
-    <link rel="stylesheet" href="/media/styles/_bundles/bundle.min.css">
+<script src="/typo3temp/assets/compressed/merged-ce0dd67e702fdbec5866ddca5902c559-ae7998a33ff1b41a36d5f348220d2984.js?1791824391"></script>
 
 
 
-    <!-- Matomo Tag Manager -->
-    
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-40EN97L0M2"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
-
-            gtag('config', 'G-40EN97L0M2');
-        </script>
-
-        <script data-cookieconsent="ignore">
-            var _mtm = window._mtm = window._mtm || [];
-            _mtm.push({ 'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start' });
-            var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-            g.async = true; g.src = 'https://analytics.wohnnet.at/js/container_re7d0jMZ.js'; s.parentNode.insertBefore(g, s);
-        </script>
-    
-    
-    <script>
-        var waitForTrackerCount = 0;
-        function matomoWaitForTracker() {
-            if (typeof _paq === 'undefined' || typeof Cookiebot === 'undefined') {
-                if (waitForTrackerCount < 40) {
-                    setTimeout(matomoWaitForTracker, 250);
-                    waitForTrackerCount++;
-                    return;
-                }
-            } else {
-                window.addEventListener('CookiebotOnAccept', function (e) {
-                    consentSet();
-                });
-                window.addEventListener('CookiebotOnDecline', function (e) {
-                    consentSet();
-                })
-            }
-        }
-        function consentSet() {
-            if (Cookiebot.consent.statistics) {
-                _paq.push(['setCookieConsentGiven']);
-                _paq.push(['setConsentGiven']);
-            } else {
-                _paq.push(['forgetCookieConsentGiven']);
-                _paq.push(['forgetConsentGiven']);
-            }
-        }
-        document.addEventListener('DOMContentLoaded', matomoWaitForTracker());
-    </script>
-    <!-- End Matomo Tag Manager -->
-
-	
+<link rel="prev" href="/wohnungssuche/wohnungsvergabe">
+<link rel="canonical" href="https://wohnberatung-wien.at/wohnungssuche/wohnungssuche">
 </head>
-<body id="layout-columns" style="background-color: #efefef">
-	<script>
-	document.addEventListener("DOMContentLoaded", function ()
-	{
-		document.getElementById("navigation-toggle").onclick = function ()
-		{
-			document.getElementById("navigation").classList.toggle("active");
-		};
-	});
-</script>
+<body id="p1434" class="page-1434 pagelevel-2 language-0 backendlayout-simple layout-default">
 
-<!-- Navigation -->
-<nav id="navigation-container" class="bg-white shadow">
-	<div class="container-ad px-ad-3">
-		<div id="navigation" class="row align-items-center justify-content-between">
-			<!-- Left -->
-			<div id="navigation-left" class="col-auto">
-				<!-- Toggle button -->
-				<button id="navigation-toggle" class="btn btn-icon grey text-white" type="button" title="Navigation" aria-label="Navigation"></button>
-			</div>
+<div id="top"></div>
+<div class="body-bg body-bg-top">
 
-			<!-- Center logo (Mobile and active) -->
-			<div id="navigation-logo-small" class="col-auto">
-				<a href="/" title="Zur Startseite" aria-label="Zur Startseite">
-					<img src="/media/images/wohnnet/logo_reduced_72_30.svg" alt="Logo" height="30" width="72" title="Logo">
-				</a>
-			</div>
+    
 
-			<!-- Center logo (Tablet+) -->
-			<div id="navigation-logo" class="col-auto">
-				<a href="/" title="Zur Startseite" aria-label="Zur Startseite">
-					<img src="/media/images/wohnnet/logo_190_50.svg" alt="Logo" height="50" width="190" title="Logo">
-				</a>
-			</div>
 
-			<!-- Right -->
-			<div id="navigation-right" class="col-auto text-right order-lg-4">
-				<!-- Favorites button -->
-				<button class="btn btn-icon grey text-white favorites-open" type="button" title="Merkliste" aria-label="Merkliste">
-					<i class="fas fa-heart"></i>
-					<span class="count"></span>
-				</button>
 
-				<!-- User button -->
-				<a id="navigation-user" class="btn btn-icon grey text-white ml-2" href="https://mein.wohnnet.at" target="_blank" title="Mein Wohnnet" aria-label="Mein Wohnnet">
-					<i class="fas fa-user"></i>
-				</a>
-			</div>
+    
 
-			<!-- Center content -->
-			<div id="navigation-content" class="col-12 col-lg order-lg-3">
-				<div>
-					<a href="/immobilien/suche" class="active">Immobilien</a>
-				</div>
-				<div>
-					<a href="/ratgeber/">Ratgeber</a>
-				</div>
-				<div>
-					<a href="/immobilien/fertighaeuser/">Fertighäuser</a>
-				</div>
-				<div>
-					<a href="/firmen/">Find' den Profi</a>
-				</div>
-			</div>
-		</div>
-	</div>
-</nav>
-	
 
-<div class="position-relative">
 
-    <div class="container-ad">
-        <div class="row align-items-start">
-            <!-- Left column -->
-            <aside id="left-column">
+
+    <a class="visually-hidden-focusable page-skip-link" href="#page-content">
+        <span>Zum Hauptinhalt springen</span>
+    </a>
+    <a class="visually-hidden-focusable page-skip-link" href="#page-footer">
+        <span>Skip to page footer</span>
+    </a>
+
+    
+
+
+
+
+<header id="page-header" class="bp-page-header navbar navbar-mainnavigation navbar-default navbar-has-image navbar-top navbar-fixed-top">
+    <div class="container container-mainnavigation">
+        
+<a class="navbar-brand navbar-brand-image" href="/">
+    
+            <img class="navbar-brand-logo-normal" src="/_assets/ec4c443bcd3b6d2b9df26a44e6782c8e/Images/logo.png" alt="wohnberatung-wien-at logo" height="52" width="180">
+            
+                <img class="navbar-brand-logo-inverted" src="/_assets/ec4c443bcd3b6d2b9df26a44e6782c8e/Images/logo.png" alt="wohnberatung-wien-at logo" height="52" width="180">
+            
+        
+</a>
+
+
+        
+            
+<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#mainnavigation" aria-controls="mainnavigation" aria-expanded="false" aria-label="Navigation umschalten">
+    <span class="navbar-toggler-icon"></span>
+</button>
+
+
+            <nav aria-label="Main navigation" id="mainnavigation" class="collapse navbar-collapse">
                 
-            </aside>
 
-            <!-- Main column -->
-            <main id="main-column" class="w-100">
+
+
                 
-<!-- Unavailable -->
-<section class="bg-white shadow p-4 px-md-5 my-1 my-md-6"> 
-	<h1>Die Immobiliensuche ist temporär nicht verfügbar.</h1>
-	<p class="light bigger mt-2">Aktuell wird die IT-Sicherheitswelt durch eine unter dem Namen „PHP2Shell“ zusammengefasste, kritische Schwachstelle in Webserver-Umgebungen gefordert. Diese Schwachstelle kann unter bestimmten Voraussetzungen schwerwiegende Angriffe auf Webserver ermöglichen.</p>
 
-	<p class="bigger mt-3"><strong>Unsere Maßnahmen</strong></p>
-	<p class="light bigger mt-1">Um die Integrität unserer Systeme zu jedem Zeitpunkt zu schützen, haben wir umgehend reagiert und Teilbereiche von wohnnet.at (darunter die Immobilien-, Fertighaus- und Firmensuche) vorübergehend offline genommen.</p>
-	<p class="light bigger mt-1">Unser technisches Team arbeitet mit Hochdruck daran, die bereitgestellten Sicherheitsupdates einzuspielen, umfassend zu prüfen und die betroffenen Bereiche wieder sicher online zu stellen.</p>
+    <ul class="navbar-nav">
+        
+            
 
-	<p class="bigger mt-3"><strong>Was bedeutet das für Sie?</strong></p>
-	<p class="light bigger mt-1">Eingeschränkte Nutzung: Die genannten Bereiche stehen temporär nicht zur Verfügung.</p>
+                    
+                    <li class="nav-item">
+                        <a id="nav-item-1431" href="/wohn-ticket" class="nav-link nav-link-main" aria-current="false">
+                            
+                            <span class="nav-link-text">
+                                Wohn-Ticket
+                                
+                            </span>
+                        </a>
+                        
+                        <div class="dropdown-menu">
+                            
+    
 
-	<p class="light bigger mt-3">Wir bedauern die damit verbundenen Unannehmlichkeiten. Unser Ziel ist es, die Services schnellstmöglich wieder in gewohnter, sicherer Qualität zur Verfügung zu stellen.</p>
-	<p class="light bigger mt-2">Vielen Dank für Ihr Verständnis und Ihr Vertrauen.</p>
+
+
+
+                        </div>
+                    </li>
+
+                
+        
+            
+
+                    
+                    <li class="nav-item">
+                        <a id="nav-item-1449" href="/wohnungssuche" class="nav-link nav-link-main active" aria-current="false">
+                            
+                            <span class="nav-link-text">
+                                Wohnungssuche
+                                
+                            </span>
+                        </a>
+                        
+                        <div class="dropdown-menu">
+                            
+    
+
+
+
+
+                        </div>
+                    </li>
+
+                
+        
+            
+
+                    
+                    <li class="nav-item">
+                        <a id="nav-item-1456" href="/faq-kontakt" class="nav-link nav-link-main" aria-current="false">
+                            
+                            <span class="nav-link-text">
+                                FAQ &amp; Kontakt
+                                
+                            </span>
+                        </a>
+                        
+                        <div class="dropdown-menu">
+                            
+    
+
+
+
+
+                        </div>
+                    </li>
+
+                
+        
+            
+
+                    
+                    <li class="nav-item">
+                        <a id="nav-item-1215" href="https://www.meinwohnticket.wien/willkommen" class="nav-link nav-link-main" target="_blank" rel="noopener noreferrer" aria-current="false">
+                            
+                            <span class="nav-link-text">
+                                Login
+                                
+                            </span>
+                        </a>
+                        
+                        <div class="dropdown-menu">
+                            
+    
+
+
+
+
+                        </div>
+                    </li>
+
+                
+        
+    </ul>
+
+
+
+                
+
+<div class="search-wrap">
+  <form method="get" id="form_kesearch_searchfield" name="form_kesearch_searchfield" action="/suche">
+    <label for="header-search-input" class="visually-hidden">Search</label>
+    <input type="text" id="header-search-input" name="tx_kesearch_pi1[sword]" class="searchbox">
+    <input type="submit" value="" class="ph ph-magnifying-glass" tabindex="5">
+  </form>
+</div>
+
+
+            </nav>
+        
+    </div>
+</header>
+
+
+
+    
+
+    
+
+
+    
+
+
+
+    <main id="page-content" class="bp-page-content main-section">
+        <!--TYPO3SEARCH_begin-->
+        
+
+    
+
+    <div class="section section-default">
+        
+
+
+
+
+
+
+
+
+        <div id="c6667" class=" frame frame-default frame-type-cloonar_livi frame-layout-default frame-size-default frame-height-default frame-background-none frame-space-before-none frame-space-after-none frame-no-backgroundimage">
+            <div class="frame-group-container">
+                <div class="frame-group-inner">
+                    
+
+
+
+                    <div class="frame-container frame-container-default">
+                        <div class="frame-inner">
+                            
+    
+    
+
+
+
+    
+    
+
+  
+      
+      
+    
+  
+  <div class="textpic textpic-centered textpic-right textpic-30 livi">
+      <div class="textpic-item textpic-gallery">
+          <img alt="Livi" src="/_assets/ec4c443bcd3b6d2b9df26a44e6782c8e/ContentBlocks/cloonar/livi/Livi_Links.png" width="1463" height="2465">
+      </div>
+      <div class="textpic-item textpic-text">
+          <h3>Die Wohnungssuche</h3>
+          <p>Bei der Suche werden Ihnen nur Wohnungen angezeigt, die zu Ihren Angaben passen.</p>
+<p>Das heißt: Größe, Lage, Kosten und andere Merkmale der Wohnung passen zu Ihren Bedürfnissen.</p>
+<p> </p>
+<p>Zwei Arten von Wohnungen werden angeboten:</p><ul class="list-normal"><li data-list-item-id="ee8106ae59d6b4fef215810ed64362853"><span><strong><a href="/glossar/76?action=detail&amp;cHash=fc8d43a4973915d18bc00754e428310b" glossary-id="76">Gemeindewohnungen</a></strong>: Sie brauchen keine Eigenmittel. Die Zimmeranzahl ist gleich der Personenzahl, also zum Beispiel 3 Zimmer für 3 Personen.</span></li><li data-list-item-id="e41dd2bb8f6b292d009d387a2fcfe0892"><span><strong><a href="/glossar/114?action=detail&amp;cHash=956c515e75a9bd918cfb747cfedee103" glossary-id="114">Geförderte Wohnungen</a></strong>: Hier müssen Sie Eigenmittel aufbringen. Je nach Wohnung können </span><span>das über oder unter 6.000 </span><span>Euro sein. Hier können Sie ein Zimmer mehr in der Wohnung bekommen als Personen darin wohnen: zum Beispiel bei 3 Personen 4 Zimmer</span></li></ul>
+      </div>
+  </div>
+
+    
+
+
+
+    
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+        <div id="c6668" class=" frame frame-default frame-type-textpic frame-layout-default frame-size-default frame-height-default frame-background-none frame-space-before-none frame-space-after-none frame-no-backgroundimage">
+            <div class="frame-group-container">
+                <div class="frame-group-inner">
+                    
+
+
+
+                    <div class="frame-container frame-container-default">
+                        <div class="frame-inner">
+                            
+    
+    
+
+
+
+    
+    
+
+    
+    
+    <div class="textpic textpic-centered textpic-left image-size-small">
+        <div class="textpic-item textpic-gallery">
+            
+
+
+
+
+
+
+    
+    
+        
+      
+
+    
+            
+        
+
+    <div class="gallery-row">
+        
+            <div class="gallery-item gallery-item-size-1">
+                
+
+
+
+
+        
+
+<figure class="image">
+  
+  
+  
+  
+      
+          
+<picture>
+    
+        
+        
+        
+        
+            
+            
+            
+                
+                
+                    
+                    
+                    
+                    
+                            
+                        
+                    
+                
+            
+            <source data-variant="default" data-maxwidth="1280" media="(min-width: 1400px)" srcset="/fileadmin/wohnberatung/bilder/Wohnungsplan.png 1x"></source>
+        
+    
+        
+        
+        
+        
+            
+            
+            
+                
+                
+                    
+                    
+                    
+                    
+                            
+                        
+                    
+                
+            
+            <source data-variant="xlarge" data-maxwidth="1100" media="(min-width: 1200px)" srcset="/fileadmin/wohnberatung/bilder/Wohnungsplan.png 1x"></source>
+        
+    
+        
+        
+        
+        
+            
+            
+            
+                
+                
+                    
+                    
+                    
+                    
+                            
+                        
+                    
+                
+            
+            <source data-variant="large" data-maxwidth="920" media="(min-width: 992px)" srcset="/fileadmin/wohnberatung/bilder/Wohnungsplan.png 1x"></source>
+        
+    
+        
+        
+        
+        
+            
+            
+            
+                
+                
+                    
+                    
+                    
+                    
+                            
+                        
+                    
+                
+            
+            <source data-variant="medium" data-maxwidth="680" media="(min-width: 768px)" srcset="/fileadmin/wohnberatung/bilder/Wohnungsplan.png 1x"></source>
+        
+    
+        
+        
+        
+        
+            
+            
+            
+                
+                
+                    
+                    
+                    
+                    
+                            
+                        
+                    
+                
+            
+            <source data-variant="small" data-maxwidth="500" media="(min-width: 576px)" srcset="/fileadmin/_processed_/f/d/csm_Wohnungsplan_7a20299ef9.png 1x"></source>
+        
+    
+        
+        
+        
+        
+            
+            
+            
+                
+                
+                    
+                    
+                    
+                    
+                            
+                        
+                    
+                
+            
+            <source data-variant="extrasmall" data-maxwidth="374" srcset="/fileadmin/_processed_/f/d/csm_Wohnungsplan_94f834cf46.png 1x"></source>
+        
+    
+    
+    
+    
+    
+            
+        
+    
+    
+    <img loading="lazy" src="/fileadmin/_processed_/f/d/csm_Wohnungsplan_153c3693e2.png" width="1280" height="1747" alt="">
+</picture>
+
+
+        
+    
+</figure>
+
+
+
+    
+
+
+            </div>
+        
+    </div>
+
+
+
+
+        </div>
+        <div class="textpic-item textpic-text">
+            
+
+    
+        <div class="frame-header">
+            
+
+    
+            
+                
+
+    
+            <h2 class="element-header  ">
+                <span>Auswahl der Wohnungen</span>
+            </h2>
+        
+
+
+
+            
+        
+
+
+
+            
+
+
+
+            
+
+
+
+        </div>
+    
+
+
+
+            <p>Nach Ihren Angaben zum Wiener Wohn-Ticket werden mögliche Wohnungen ausgewählt. Besonders wichtig dabei sind:</p><ul class="list-normal"><li data-list-item-id="e0c052c2257625283f8720a3a3397c25f"><span>Miethöhe: Die <a href="/glossar/52?action=detail&amp;cHash=02cbffda27bd51a0dcfe34ccbb217b90" glossary-id="52">Miete</a> darf nicht mehr als 50 % Ihres Haushaltseinkommens betragen. Sie können auch eine geringere Höhe im Suchformular auf </span><a href="https://www.meinwohnticket.wien/" target="_blank" rel="noreferrer"><i class="bi-box-arrow-up-right"></i>  <span><u>meinwohnticket.wien</u></span></a><span><u> </u>einstellen.</span></li><li data-list-item-id="e6b4ecd46a0d74b58519bb1ac560da423"><span>Größe der Wohnung: Sie muss zur Anzahl der Personen in Ihrem Haushalt passen.</span></li><li data-list-item-id="ef10f0a70d2dc3c5177be3ddff94b66d5"><span>Andere Voraussetzungen aus Ihren Angaben oder Bonuspunkten. Zum Beispiel: Sie brauchen aus gesundheitlichen Gründen einen Lift.</span></li></ul><p>Bei der Suche können Sie weitere Einstellungen wählen, um eine passende Wohnung zu finden.</p>
+        </div>
+    </div>
+
+
+    
+
+
+
+    
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+        <div id="c6670" class=" frame frame-default frame-type-text frame-layout-default frame-size-default frame-height-default frame-background-none frame-space-before-none frame-space-after-none frame-no-backgroundimage">
+            <div class="frame-group-container">
+                <div class="frame-group-inner">
+                    
+
+
+
+                    <div class="frame-container frame-container-default">
+                        <div class="frame-inner">
+                            
+    
+    
+
+
+
+    
+
+    
+        <div class="frame-header">
+            
+
+    
+            
+                
+
+    
+            <h2 class="element-header  ">
+                <span>So sehen Sie Ihre Wohnung</span>
+            </h2>
+        
+
+
+
+            
+        
+
+
+
+            
+
+
+
+            
+
+
+
+        </div>
+    
+
+
+
+    
+
+    <p>Bei <a href="/glossar/76?action=detail&amp;cHash=fc8d43a4973915d18bc00754e428310b" glossary-id="76">Gemeindewohnungen</a> gibt es meist Fotos aller Räume.</p>
+<p>Bei geförderten Wohnungen gibt es meist nur einen Grundrissplan und ein Bild der Fassade. Die Wohnungen sind oft noch in Bau oder noch vermietet. </p>
+
+
+    
+
+
+
+    
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+        <div id="c6740" class=" frame frame-default frame-type-shortcut frame-layout-default frame-size-default frame-height-default frame-background-none frame-space-before-none frame-space-after-none frame-no-backgroundimage">
+            <div class="frame-group-container">
+                <div class="frame-group-inner">
+                    
+
+
+
+                    <div class="frame-container frame-container-default">
+                        <div class="frame-inner">
+                            
+    
+    
+
+
+
+    
+    
+
+    
+
+
+
+
+
+
+
+
+        <div id="c5737" class=" frame frame-default box frame-type-textteaser frame-layout-default frame-size-default frame-height-default frame-background-none frame-space-before-none frame-space-after-none frame-option-indent-small-left frame-option-indent-small-right frame-no-backgroundimage">
+            <div class="frame-group-container">
+                <div class="frame-group-inner">
+                    
+
+
+
+                    <div class="frame-container frame-container-default">
+                        <div class="frame-inner">
+                            
+    
+    
+
+
+
+    
+    
+
+    <div class="textteaser">
+        <div class="textteaser-item textteaser-teaser">
+            
+
+    
+        <div class="frame-header">
+            
+
+    
+            <h2 class="element-header h1 ">
+                <span>Haben Sie noch Fragen?</span>
+            </h2>
+        
+
+
+
+            
+
+
+
+            
+
+
+
+        </div>
+    
+
+
+
+            
+        </div>
+        <div class="textteaser-item textteaser-text">
+            <p class="text-center"><a href="/kontakt" class="btn btn-primary">Kontaktieren Sie uns</a></p>
+        </div>
+    </div>
+
+
+    
+
+
+
+    
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+
+
+    </div>
+
+    
+
+
+        <!--TYPO3SEARCH_end-->
+    </main>
+
+    <footer id="page-footer" class="bp-page-footer">
+        
+
+
+
+        
+
+    
+<section class="section footer-section footer-section-content">
+    <div class="container">
+        <div class="section-row">
+            <div class="section-column footer-section-content-column footer-section-content-column-left">
+                
+
+
+
+
+    
+
+
+
+
+
+        <div id="c5744" class=" frame frame-default frame-type-text frame-layout-default frame-size-default frame-height-default frame-background-none frame-space-before-none frame-space-after-none frame-no-backgroundimage">
+            <div class="frame-group-container">
+                <div class="frame-group-inner">
+                    
+
+
+
+                    <div class="frame-container frame-container-default">
+                        <div class="frame-inner">
+                            
+    
+    
+
+
+
+    
+
+    
+        <div class="frame-header">
+            
+
+    
+            
+                
+
+    
+            <h2 class="element-header  ">
+                <span>Service</span>
+            </h2>
+        
+
+
+
+            
+        
+
+
+
+            
+
+
+
+            
+
+
+
+        </div>
+    
+
+
+
+    
+
+    <p><a href="https://wohnservice-wien.at/" target="_blank">Wohnservice Wien</a></p>
+<p><a href="https://mieterhilfe.at/" target="_blank">MieterHilfe</a></p>
+<p><a href="https://wohnpartner-wien.at/" target="_blank">wohnpartner</a></p>
+<p><a href="https://wohnservice-wien.at/menu/kampagnen" target="_blank">Kampagnen</a></p>
+<p><a href="/impressum">Impressum</a></p>
+<p><a href="/footer/datenschutz-barrierefreiheit">Datenschutz &amp; Barrierefreiheit</a></p>
+
+
+    
+
+
+
+    
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+
+
+            </div>
+            <div class="section-column footer-section-content-column footer-section-content-column-middle">
+                
+
+
+
+
+    
+
+
+
+
+
+        <div id="c5746" class=" frame frame-default frame-type-text frame-layout-default frame-size-default frame-height-default frame-background-none frame-space-before-none frame-space-after-none frame-no-backgroundimage">
+            <div class="frame-group-container">
+                <div class="frame-group-inner">
+                    
+
+
+
+                    <div class="frame-container frame-container-default">
+                        <div class="frame-inner">
+                            
+    
+    
+
+
+
+    
+
+    
+        <div class="frame-header">
+            
+
+    
+            
+                
+
+    
+            <h2 class="element-header  ">
+                <span>Quicklinks</span>
+            </h2>
+        
+
+
+
+            
+        
+
+
+
+            
+
+
+
+            
+
+
+
+        </div>
+    
+
+
+
+    
+
+    <p><a href="https://wohnservice-wien.at/karriere" target="_blank">Karriere</a></p>
+<p><a href="/footer/downloads">Downloads</a></p>
+<p><a href="/ueber-uns">Über uns</a></p>
+<p><a href="/faq-kontakt">FAQ</a></p>
+<p><a href="/footer/glossar">Register</a></p>
+<p><a href="https://wohnservice-wien.at/whistleblower" target="_blank">Whistleblower</a></p>
+
+
+    
+
+
+
+    
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+
+
+            </div>
+            <div class="section-column footer-section-content-column footer-section-content-column-right">
+                
+
+
+
+
+    
+
+
+
+
+
+        <div id="c5745" class=" frame frame-default frame-type-text frame-layout-default frame-size-default frame-height-default frame-background-none frame-space-before-none frame-space-after-none frame-no-backgroundimage">
+            <div class="frame-group-container">
+                <div class="frame-group-inner">
+                    
+
+
+
+                    <div class="frame-container frame-container-default">
+                        <div class="frame-inner">
+                            
+    
+    
+
+
+
+    
+
+    
+        <div class="frame-header">
+            
+
+    
+            
+                
+
+    
+            <h2 class="element-header  ">
+                <span>Kontakt</span>
+            </h2>
+        
+
+
+
+            
+        
+
+
+
+            
+
+
+
+            
+
+
+
+        </div>
+    
+
+
+
+    
+
+    <p>Paragonstraße 4<br>Ecke Guglgasse<br>1030 Wien</p>
+<p><a href="http://maps.apple.com/?daddr=Paragonstra%C3%9Fe%204" target="_blank" rel="noreferrer"><i class="bi-box-arrow-up-right"></i>  Wegbeschreibung</a></p>
+<p><a href="tel:+43124111">01/24 111</a></p>
+
+
+    
+
+
+
+    
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+
+
+            </div>
+        </div>
+    </div>
 </section>
 
-            </main>
 
-            <!-- Right column -->
-            <aside id="right-column">
-                
-            </aside>
-        </div>
+
+
+        
+
+
+
+    </footer>
+    
+<a class="scroll-top" title="Nach oben rollen" href="#top">
+    <span class="scroll-top-icon"></span>
+</a>
+
+
+    
+
+
+
+
+    <div id="wsw-button">
+      
+      <div class="close"></div>
     </div>
 
 </div>
 
-	
-	<!-- Footer -->
-<footer class="pb-3" style="background-color: #e8e7e9">
-	<div class="container-ad px-ad-3">
-		<div class="row">
-			<div class="col-sm-6 col-md mt-4">
-				<p class="h5 mb-1">Ratgeber</p>
-				<a href="/bauen/">Bauen</a>
-				<a href="/wohnen/">Wohnen</a>
-				<a href="/sanierung/">Sanieren</a>
-				<a href="/energie/">Energie</a>
-				<a href="/garten/">Garten</a>
-				<a href="/finanzieren/">Finanzieren</a>
-				<a href="/business/">Business</a>
-				<a href="/service/events/">Messen & Events</a>
-				<a href="/service/magazin/">Magazine & Kataloge</a>
-			</div>
-			<div class="col-sm-6 col-md mt-4">
-                <p class="h5 mb-1">Service</p>
-                    <a href="/">Immobilien</a>
-                    <a href="/business/marketing/immobilien-inserieren-64095">Immobilien inserieren</a>
-                    <a href="/immobilien/fertighaeuser/">Fertighäuser</a>
-                    <a href="/firmen/">Firmen</a>
-                    <br>
-                    <a href="https://online.fliphtml5.com/qeent/rmrp/#p=1" target="_blank">Mediadaten</a>
-                    <a href="/service/anzeigen/werbung-auf-wohnnet-25486">Werben auf Wohnnet</a>
-</div>
-			<div class="col-sm-6 col-md mt-4">
-				<p class="h5 mb-1">Netzwerk</p>
-				<a href="https://www.facebook.com/wohnnet" target="_blank" rel="noreferrer">Wohnnet auf Facebook</a>
-				<a href="https://heise-regioconcept.at/" rel="noreferrer">heise-regioconcept.at</a>
-				<a href="https://heise-regioconcept.de/" rel="noreferrer">heise-regioconcept.de</a>
-				<br>
-				<br>
-				<a href="/service/allgemeine-geschaeftsbedingungen-14225">AGB</a>
-				<a href="/service/impressum-19676">Impressum</a>
-				<a href="/service/offenlegung-21535">Datenschutzerklärung</a>
-			</div>
-		</div>
-		<div class="mt-3 pt-3 bt-1 text-right">
-			© 2026 Heise RegioConcept GmbH & Co. KG
-		</div>
-	</div>
-</footer>
-	
+<div id="glossary-item-52" class="glossary-item hidden"><p>Von <a class="glossary-link" target="_blank" glossary-id="52" href="/glossar/52?action=detail&cHash=02cbffda27bd51a0dcfe34ccbb217b90">Miete</a> spricht man, wenn jemand einer anderen Person vertraglich die Benutzung eines Mietobjektes gegen Entgelt gestattet. Dabei ist zwischen Hauptmiete und Untermiete zu unterscheiden. Es kommt jedoch nicht auf die Bezeichnung des Mietvertrages an, sondern auf den bzw. die VertragspartnerIn. Haupt- und Untermietverträge können befristet oder unbefristet abgeschlossen werden.
+Wird ein Objekt unentgeltlich zur Nutzung überlassen, geschieht dies meistens in Form eines Prekariums(Bittleihe).</p></div><div id="glossary-item-76" class="glossary-item hidden"><p>Entgegen einer weitverbreiteten Ansicht handelt es sich bei Gemeindewohnungen im gesetzlichen Sinne um normale Hauptmietwohnungen. Die Stadt Wien ist in diesen Fällen Hauseigentümerin und Vermieterin der Wohnungen. Für die laufende Bewirtschaftung und Erhaltung gelten die normalen mietrechtlichen Bestimmungen.</p>
+<p>Für die Wohnungsvergabe gibt es in Wien einheitliche Regelungen, die besonders soziale Gesichtspunkte berücksichtigen.</p>
+<p>Nähere Infos rund um die Gemeindewohnung: <a href="https://www.wienerwohnen.at/" target="_blank">Wiener Wohnen.</a></p></div><div id="glossary-item-114" class="glossary-item hidden"><p>Geförderte Wohnungen werden von Bauträgern (oft gemeinnützigen Bauvereinigungen oder Genossenschaften) errichtet. Die Stadt Wien unterstützt dabei mit öffentlichen Mitteln über günstige Kredite und stellt damit sicher, dass in Wien ständig hochwertiger, leistbarer Wohnraum neu gebaut wird.&nbsp;</p>
+<p>Bei Einzug muss meist ein einmaliger Finanzierungsbeitrag (Eigenmittel) bezahlt werden. Die Mietverträge sind bei geförderten Wohnungen üblicherweise unbefristet. Die Mieten sind deutlich niedriger als bei privaten Mietwohnungen.</p>
+<p>Für eine geförderte Mietwohnung müssen Interessent*innen bestimmte Voraussetzungen erfüllen (z.B. darf das Jahreseinkommen eine Höchstgrenze nicht überschreiten).</p>
+<p>Ein bestimmter Teil der gefördert errichteten Wohnungen in Wien wird über das Wiener Wohn-Ticket an berechtigte Wohnungssuchende vergeben.</p></div></body>
+<script src="/typo3temp/assets/compressed/merged-be66baf5ff799fea592eb34bae3c4b16-4e8398c892cdc8f4faa1da8003eba478.js?1792253928"></script>
+<script src="/typo3temp/assets/compressed/merged-193d722a6a41f48b88e57b56ed70c8b0-07caa8c0a5bf810099dfa9752259994a.js?1791824391"></script>
 
-
-	<!-- Load required resources (js, fonts, css) -->
-	<!-- Resources pre -->
-
-<!-- Fonts -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Encode+Sans:300,400,500&display=swap">
-
-<!-- Bundled scripts -->
-
-	<script src="/media/scripts/_bundles/bundle.min.js"></script>
-
-
-
-<!-- Custom scripts -->
-<script>
-	// Initialize lazy loading
-	lazyloadHelpers.initialize(200, false);
-
-	let favoritesSettings = {
-		debug: false,
-		endpoint: "/immobilien/favorites"
-	};
-
-	// Initialize favorites
-	favorites.initialize(favoritesSettings);
-	favorites.update();
-
-	// Initialize tooltips
-	$("[data-toggle='tooltip']").tooltip();
-</script>
-
-
-
-	<!-- Load optional injected resources (js, css) -->
-	
-	
-
-	<!-- Execute scripts after optional scripts -->
-	
-
-
-<script>	
-    $(".realty-result-topobject").each(function () {
-	
-		var btn = $(this);
-		$(this).click(function () {			
-			
-			var id = btn.data("id");
-			var title = btn.data("title");			
-			var data = '{"id": '+id+', "title":"'+title+'", "type" : "ClickTopObject"}';
-			
-			var xhr = new XMLHttpRequest();
-            xhr.open("POST", '/async/statistic/click', true);
-            xhr.setRequestHeader("Content-Type", "application/json");            
-            xhr.send(data);
-		});
-	});
-	
-    $(".realty-result-topplaced").each(function () {
-    	
-    		var btn = $(this);
-    		$(this).click(function () {			
-    			
-    			var id = btn.data("id");
-    			var title = btn.data("title");			
-    			var data = '{"id": '+id+', "title":"'+title+'", "type" : "ClickTopPlaced"}';
-    			
-    			var xhr = new XMLHttpRequest();
-                xhr.open("POST", '/async/statistic/click', true);
-                xhr.setRequestHeader("Content-Type", "application/json");            
-                xhr.send(data);
-    		});
-    	});
-	
-	document.addEventListener("DOMContentLoaded", function () {
-                            
-		window.reloadAllAdsTimer = setInterval(reloadAllAds, 15000);
-        
-        function reloadAllAds() {
-            if (document.hasFocus()) {
-                if (dataLayer) {
-					dataLayer.push({'event': 'ad-reload-timer'});
-				}
-            }
-        }
-    });
-</script>
 
 </body>
 </html>
