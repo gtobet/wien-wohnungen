@@ -478,16 +478,32 @@ const mapView = {
     new Control().addTo(this.map);
     this.map.on("moveend", () => this.updateShadowLink());
     $("shadowClose").addEventListener("click", () => this.setShadow(false));
+    $("shadowRecenter").addEventListener("click", () => {
+      this.shadowUrl = null;
+      this.updateShadowLink(true);
+    });
+    // Shadowmap shows a loading screen first, so the pin appears once the frame has loaded.
+    $("shadowFrame").addEventListener("load", () => {
+      clearTimeout(this.pinTimer);
+      this.pinTimer = setTimeout(() => {
+        const x = this.active;
+        if (this.shadowOn && $("shadowFrame").src && document.activeElement !== $("shadowFrame")) $("shadowPin").hidden = !(x && x.geo);
+      }, 1200);
+    });
     // A click into the iframe moves focus there; from then on the 3D view may be panned, so the
-    // centre ring would point at the wrong building.
+    // centre pin would point at the wrong building. "Zur Wohnung" reloads the view on the listing.
     window.addEventListener("blur", () => {
-      if (document.activeElement === $("shadowFrame")) $("shadowPin").hidden = true;
+      if (document.activeElement !== $("shadowFrame")) return;
+      clearTimeout(this.pinTimer);
+      $("shadowPin").hidden = true;
+      $("shadowRecenter").hidden = !(this.active && this.active.geo);
     });
   },
 
   shadowOn: false,
   shadowUrl: null,
   shadowTimer: null,
+  pinTimer: null,
 
   shadowTarget() {
     const x = this.active;
@@ -508,6 +524,7 @@ const mapView = {
   setShadow(on) {
     this.shadowOn = on;
     $("mapPane").classList.toggle("shadow-on", on);
+    document.documentElement.classList.toggle("shadow-open", on);
     $("map").hidden = on;
     $("shadowPane").hidden = !on;
     if (on) {
@@ -515,7 +532,9 @@ const mapView = {
       this.updateShadowLink(true);
     } else {
       $("shadowFrame").removeAttribute("src");
+      clearTimeout(this.pinTimer);
       $("shadowPin").hidden = true;
+      $("shadowRecenter").hidden = true;
       this.shadowUrl = null;
       requestAnimationFrame(() => {
         this.map.invalidateSize();
@@ -535,9 +554,10 @@ const mapView = {
       if (url !== this.shadowUrl) {
         this.shadowUrl = url;
         $("shadowFrame").src = `${url}&time=${Date.now()}`;
-        const x = this.active;
         if (document.activeElement === $("shadowFrame")) $("shadowFrame").blur();
-        $("shadowPin").hidden = !(x && x.geo);
+        clearTimeout(this.pinTimer);
+        $("shadowPin").hidden = true;
+        $("shadowRecenter").hidden = true;
       }
     };
     if (now) apply();

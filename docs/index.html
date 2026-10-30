@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
 <header class="topbar">
@@ -103,13 +103,14 @@
     <div id="map" class="map"></div>
     <div id="shadowPane" class="shadow-pane" hidden>
       <div class="shadow-bar">
+        <button type="button" id="shadowClose" class="btn shadow-back"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>Karte</button>
         <span id="shadowLabel" class="shadow-label"></span>
-        <a id="shadowOpen" class="shadow-link" target="_blank" rel="noopener">In neuem Tab</a>
-        <button type="button" id="shadowClose" class="btn">Zurück zur Karte</button>
+        <button type="button" id="shadowRecenter" class="btn" hidden>Zur Wohnung</button>
+        <a id="shadowOpen" class="shadow-link" target="_blank" rel="noopener">Neuer Tab</a>
       </div>
       <div class="shadow-stage">
         <iframe id="shadowFrame" title="Shadowmap: Sonne und Schatten" allow="fullscreen; geolocation" referrerpolicy="no-referrer"></iframe>
-        <div id="shadowPin" class="shadow-pin" hidden></div>
+        <div id="shadowPin" class="shadow-pin" hidden><span>Wohnung</span></div>
       </div>
     </div>
     <p id="mapHint" class="map-hint">Fahr über ein Angebot, um seine Lage zu sehen. „Shadowmap“ zeigt Sonne und Schatten an der markierten Stelle.</p>
@@ -136,6 +137,6 @@
 </dialog>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="app.js?v=7"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>
