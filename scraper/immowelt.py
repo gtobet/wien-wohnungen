@@ -66,7 +66,7 @@ def parse(html):
                 address=" ".join(x for x in [addr.get("street"), addr.get("zipCode"), addr.get("city")] if x),
                 outdoor=outdoor,
                 swap=is_swap(headline, desc.get("description")),
-                image=images[0].get("url") if images else None,
+                images=[img["url"] for img in images if img.get("url")],
                 published=(c.get("metadata") or {}).get("creationDate"),
             )
         )

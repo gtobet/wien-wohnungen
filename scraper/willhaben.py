@@ -35,7 +35,11 @@ def parse(html):
             if extra not in outdoor:
                 outdoor.append(extra)
         seo = _first(a, "SEO_URL")
-        images = ad.get("advertImageList", {}).get("advertImage") or []
+        images = [
+            "https://cache.willhaben.at/mmo/" + re.sub(r"\.jpg$", "_hoved.jpg", p)
+            for p in (_first(a, "ALL_IMAGE_URLS") or "").split(";")
+            if p
+        ]
         out.append(
             listing(
                 id=f"wh-{ad['id']}",
@@ -50,7 +54,7 @@ def parse(html):
                 address=_first(a, "ADDRESS"),
                 outdoor=outdoor,
                 swap=is_swap(title, body),
-                image=images[0].get("thumbnailImageUrl") if images else None,
+                images=images,
                 published=_first(a, "PUBLISHED_String"),
             )
         )

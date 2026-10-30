@@ -13,6 +13,7 @@ const DEFAULTS = {
   platforms: null, // null = alle
   sort: "new",
 };
+const PAGE_SIZE = 48;
 
 const DISTRICT_NAMES = {
   1: "Innere Stadt", 2: "Leopoldstadt", 3: "Landstraße", 4: "Wieden", 5: "Margareten",
@@ -20,6 +21,16 @@ const DISTRICT_NAMES = {
   11: "Simmering", 12: "Meidling", 13: "Hietzing", 14: "Penzing", 15: "Rudolfsheim-Fünfhaus",
   16: "Ottakring", 17: "Hernals", 18: "Währing", 19: "Döbling", 20: "Brigittenau",
   21: "Floridsdorf", 22: "Donaustadt", 23: "Liesing",
+};
+
+const ICONS = {
+  area: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 15v5h-5M4 4l7 7M20 20l-7-7"/></svg>',
+  rooms: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h9M12 3v18"/></svg>',
+  pin: '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.1-7-11a7 7 0 0 1 14 0c0 4.9-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  prev: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>',
+  next: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>',
+  heart: '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+  external: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>',
 };
 
 const store = {
@@ -42,19 +53,27 @@ const store = {
 
 let data = { listings: [], status: {}, updated: null };
 let state = { ...DEFAULTS, ...store.get("filters", {}) };
+let shown = PAGE_SIZE;
 const favs = new Set(store.get("favs", []));
 const hidden = new Set(store.get("hidden", []));
 const previousVisit = store.get("lastVisit", null);
 store.set("lastVisit", new Date().toISOString());
 
-const form = document.getElementById("filters");
 const $ = (id) => document.getElementById(id);
+const form = $("filters");
+const sortSelect = document.querySelector('select[name="sort"]');
 const fmtEuro = new Intl.NumberFormat("de-AT", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 const fmtNum = new Intl.NumberFormat("de-AT", { maximumFractionDigits: 1 });
-const fmtDate = new Intl.DateTimeFormat("de-AT", { dateStyle: "short", timeStyle: "short" });
+const fmtSqm = new Intl.NumberFormat("de-AT", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const fmtDate = new Intl.DateTimeFormat("de-AT", { day: "numeric", month: "numeric", hour: "2-digit", minute: "2-digit" });
+const fmtDay = new Intl.DateTimeFormat("de-AT", { day: "numeric", month: "numeric" });
 
 function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
+function cleanTitle(t) {
+  return String(t || "Ohne Titel").replace(/_+/g, " ").replace(/\s{2,}/g, " ").trim();
 }
 
 function isNew(item) {
@@ -66,45 +85,52 @@ function allPlatforms() {
   return Object.keys(data.status || {});
 }
 
+function chip(label, pressed, onClick, title) {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "chip";
+  b.textContent = label;
+  if (title) b.title = title;
+  b.setAttribute("aria-pressed", pressed());
+  b.addEventListener("click", () => {
+    onClick();
+    b.setAttribute("aria-pressed", pressed());
+    changed();
+  });
+  return b;
+}
+
 function buildChips() {
   const d = $("districts");
-  d.innerHTML = "";
+  d.replaceChildren();
   for (let n = 1; n <= 23; n++) {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "chip";
-    b.textContent = n;
-    b.title = DISTRICT_NAMES[n];
-    b.setAttribute("aria-pressed", state.districts.includes(n));
-    b.addEventListener("click", () => {
-      state.districts = state.districts.includes(n) ? state.districts.filter((x) => x !== n) : [...state.districts, n];
-      b.setAttribute("aria-pressed", state.districts.includes(n));
-      changed();
-    });
-    d.append(b);
+    d.append(
+      chip(
+        n,
+        () => state.districts.includes(n),
+        () => {
+          state.districts = state.districts.includes(n) ? state.districts.filter((x) => x !== n) : [...state.districts, n];
+        },
+        `${n}. ${DISTRICT_NAMES[n]}`
+      )
+    );
   }
 
   const p = $("platforms");
-  p.innerHTML = "";
+  p.replaceChildren();
   for (const name of allPlatforms()) {
-    const b = document.createElement("button");
-    b.type = "button";
-    b.className = "chip";
-    b.textContent = name;
     const on = () => !state.platforms || state.platforms.includes(name);
-    b.setAttribute("aria-pressed", on());
-    b.addEventListener("click", () => {
-      const current = state.platforms || allPlatforms();
-      state.platforms = on() ? current.filter((x) => x !== name) : [...current, name];
-      b.setAttribute("aria-pressed", on());
-      changed();
-    });
-    p.append(b);
+    p.append(
+      chip(name, on, () => {
+        const current = state.platforms || allPlatforms();
+        state.platforms = on() ? current.filter((x) => x !== name) : [...current, name];
+      })
+    );
   }
 }
 
 function syncForm() {
-  for (const el of form.elements) {
+  for (const el of [...form.elements, sortSelect]) {
     if (!el.name || !(el.name in state)) continue;
     if (el.type === "checkbox") el.checked = !!state[el.name];
     else el.value = state[el.name] ?? "";
@@ -112,7 +138,7 @@ function syncForm() {
 }
 
 function readForm() {
-  for (const el of form.elements) {
+  for (const el of [...form.elements, sortSelect]) {
     if (!el.name || !(el.name in DEFAULTS)) continue;
     if (el.type === "checkbox") state[el.name] = el.checked;
     else if (el.type === "number") state[el.name] = el.value === "" ? null : Number(el.value);
@@ -141,39 +167,109 @@ const SORTS = {
   area: (a, b) => (b.area ?? 0) - (a.area ?? 0),
 };
 
+function gallery(x) {
+  const images = (x.images && x.images.length ? x.images : x.image ? [x.image] : []).filter(Boolean);
+  const wrap = document.createElement("div");
+  wrap.className = "gallery";
+  if (!images.length) {
+    wrap.innerHTML = '<div class="empty">Kein Foto</div>';
+    return wrap;
+  }
+  const slides = document.createElement("div");
+  slides.className = "slides";
+  images.forEach((src, i) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = "";
+    img.loading = i === 0 ? "eager" : "lazy";
+    img.decoding = "async";
+    img.referrerPolicy = "no-referrer";
+    img.addEventListener("error", () => img.remove(), { once: true });
+    slides.append(img);
+  });
+  wrap.append(slides);
+  if (images.length < 2) return wrap;
+
+  const prev = document.createElement("button");
+  prev.type = "button";
+  prev.className = "nav prev";
+  prev.setAttribute("aria-label", "Vorheriges Foto");
+  prev.innerHTML = ICONS.prev;
+  const next = document.createElement("button");
+  next.type = "button";
+  next.className = "nav next";
+  next.setAttribute("aria-label", "Nächstes Foto");
+  next.innerHTML = ICONS.next;
+  const counter = document.createElement("span");
+  counter.className = "counter";
+  wrap.append(prev, next, counter);
+
+  const update = () => {
+    const total = slides.children.length;
+    const i = Math.round(slides.scrollLeft / Math.max(slides.clientWidth, 1));
+    counter.textContent = `${Math.min(i + 1, total)} / ${total}`;
+    prev.disabled = i <= 0;
+    next.disabled = i >= total - 1;
+  };
+  const go = (dir) => slides.scrollBy({ left: dir * slides.clientWidth, behavior: "smooth" });
+  prev.addEventListener("click", () => go(-1));
+  next.addEventListener("click", () => go(1));
+  slides.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+  wrap.tabIndex = 0;
+  wrap.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") go(-1);
+    if (e.key === "ArrowRight") go(1);
+  });
+  requestAnimationFrame(update);
+  return wrap;
+}
+
 function card(x) {
   const li = document.createElement("li");
-  li.className = "item" + (hidden.has(x.id) ? " hidden" : "");
-  const facts = [
-    x.price != null ? `<span class="price" title="${esc(x.price_note)}">${fmtEuro.format(x.price)}</span>` : "<span>Preis k. A.</span>",
-    x.area != null ? `<span>${fmtNum.format(x.area)} m²</span>` : "",
-    x.rooms != null ? `<span>${fmtNum.format(x.rooms)} Zi.</span>` : "",
-    x.district ? `<span>${x.district}. ${esc(DISTRICT_NAMES[x.district])}</span>` : "",
-    x.price && x.area ? `<span class="muted">${fmtNum.format(x.price / x.area)} €/m²</span>` : "",
-  ].join("");
-  const outdoor = x.outdoor && x.outdoor.length ? `<span class="tag out">${esc(x.outdoor.join(", "))}</span>` : "";
-  li.innerHTML = `
-    ${x.image ? `<img class="thumb" loading="lazy" referrerpolicy="no-referrer" src="${esc(x.image)}" alt="">` : `<div class="thumb"></div>`}
-    <div>
-      <h2><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title || "Ohne Titel")}</a></h2>
-      <div class="facts">${facts}</div>
-      <div class="tags">
-        ${isNew(x) ? '<span class="tag new">Neu</span>' : ""}
-        ${outdoor}
-        ${x.swap ? '<span class="tag">Tausch/Wohnticket</span>' : ""}
-        <span class="tag">${esc(x.platform)}</span>
-        <span class="muted">seit ${fmtDate.format(new Date(x.first_seen))}</span>
-        <span class="actions">
-          <button type="button" data-act="fav" aria-pressed="${favs.has(x.id)}" title="Merken">★</button>
-          <button type="button" data-act="hide" aria-pressed="${hidden.has(x.id)}" title="Ausblenden">✕</button>
-        </span>
-      </div>
+  li.className = "card" + (hidden.has(x.id) ? " is-hidden" : "");
+
+  const g = gallery(x);
+  const tags = document.createElement("div");
+  tags.className = "overlay-tags";
+  tags.innerHTML =
+    (isNew(x) ? '<span class="badge new">Neu</span>' : "") +
+    (x.outdoor && x.outdoor.length ? `<span class="badge out">${esc(x.outdoor.join(" · "))}</span>` : "");
+  const fav = document.createElement("button");
+  fav.type = "button";
+  fav.className = "fav";
+  fav.setAttribute("aria-label", "Merken");
+  fav.setAttribute("aria-pressed", favs.has(x.id));
+  fav.innerHTML = ICONS.heart;
+  fav.addEventListener("click", () => toggle(favs, "favs", x.id, fav));
+  g.append(tags, fav);
+
+  const body = document.createElement("div");
+  body.className = "body";
+  const sqm = x.price && x.area ? `<span class="sqm">${fmtSqm.format(x.price / x.area)} €/m²</span>` : "";
+  body.innerHTML = `
+    <div class="price-row">
+      <span class="price" title="${esc(x.price_note)}">${x.price != null ? fmtEuro.format(x.price) : "Preis auf Anfrage"}</span>
+      ${sqm}
+    </div>
+    <div class="facts">
+      ${x.area != null ? `<span>${ICONS.area}${fmtNum.format(x.area)} m²</span>` : ""}
+      ${x.rooms != null ? `<span>${ICONS.rooms}${fmtNum.format(x.rooms)} Zi.</span>` : ""}
+      ${x.district ? `<span>${ICONS.pin}${x.district}., ${esc(DISTRICT_NAMES[x.district])}</span>` : ""}
+    </div>
+    <p class="title">${esc(cleanTitle(x.title))}</p>
+    <div class="foot">
+      <span><span class="platform">${esc(x.platform)}</span> · seit ${fmtDay.format(new Date(x.first_seen))}</span>
+      ${x.swap ? '<span class="tag-swap">Tausch</span>' : ""}
+      <span class="spacer"></span>
+      <button type="button" class="ghost" data-act="hide">${hidden.has(x.id) ? "Einblenden" : "Ausblenden"}</button>
+      <a class="open" href="${esc(x.url)}" target="_blank" rel="noopener">Ansehen ${ICONS.external}</a>
     </div>`;
-  li.querySelector('[data-act="fav"]').addEventListener("click", (e) => toggle(favs, "favs", x.id, e.currentTarget));
-  li.querySelector('[data-act="hide"]').addEventListener("click", (e) => {
+  body.querySelector('[data-act="hide"]').addEventListener("click", (e) => {
     toggle(hidden, "hidden", x.id, e.currentTarget);
     render();
   });
+
+  li.append(g, body);
   return li;
 }
 
@@ -183,40 +279,69 @@ function toggle(set, key, id, button) {
   button.setAttribute("aria-pressed", set.has(id));
 }
 
+function summary() {
+  const parts = [];
+  if (state.maxPrice != null) parts.push(`bis ${fmtEuro.format(state.maxPrice)}`);
+  if (state.minArea != null) parts.push(`ab ${state.minArea} m²`);
+  if (state.minRooms != null) parts.push(`ab ${state.minRooms} Zi.`);
+  parts.push(`${state.districts.length} Bezirke`);
+  if (state.outdoorOnly) parts.push("Freifläche");
+  return parts.join(" · ");
+}
+
 function render() {
   const items = data.listings.filter(matches).sort(SORTS[state.sort] || SORTS.new);
   const fresh = items.filter(isNew).length;
-  $("count").textContent = `${items.length} Angebote` + (fresh ? `, davon ${fresh} neu` : "");
+  $("count").innerHTML = `${items.length} ${items.length === 1 ? "Wohnung" : "Wohnungen"}` + (fresh ? `<small>${fresh} neu</small>` : "");
+  $("filterSummary").textContent = summary();
   const list = $("list");
-  list.replaceChildren(...items.map(card));
+  if (!items.length) {
+    list.innerHTML = '<li class="empty-state">Keine Wohnungen für diese Filter. Probier etwas mehr Spielraum bei Preis oder Bezirken.</li>';
+  } else {
+    list.replaceChildren(...items.slice(0, shown).map(card));
+  }
+  const more = $("more");
+  more.hidden = items.length <= shown;
+  more.textContent = `Weitere ${Math.min(PAGE_SIZE, items.length - shown)} von ${items.length - shown} anzeigen`;
 }
 
 function renderMeta() {
-  $("meta").textContent = data.updated ? `Stand: ${fmtDate.format(new Date(data.updated))}` : "Noch keine Daten";
+  $("meta").textContent = data.updated ? `Aktualisiert ${fmtDate.format(new Date(data.updated))}` : "Noch keine Daten";
   $("sources").innerHTML = Object.entries(data.status || {})
     .map(([name, s]) =>
       s.ok
-        ? `<span>✓ ${esc(name)} (${s.count})</span>`
-        : `<span class="bad" title="${esc(s.error)}">⚠ ${esc(name)} nicht erreichbar${s.last_ok ? `, zuletzt ${fmtDate.format(new Date(s.last_ok))}` : ""}</span>`
+        ? `<span class="source" title="${s.count} Angebote im Suchraum"><b>${esc(name)}</b></span>`
+        : `<span class="source bad" title="${esc(s.error)}"><b>${esc(name)}</b> nicht erreichbar</span>`
     )
-    .join(" ");
+    .join("");
 }
 
 function changed() {
   store.set("filters", state);
+  shown = PAGE_SIZE;
   render();
 }
 
-form.addEventListener("input", () => {
+const onInput = () => {
   readForm();
   changed();
-});
+};
+form.addEventListener("input", onInput);
+sortSelect.addEventListener("change", onInput);
 form.addEventListener("submit", (e) => e.preventDefault());
+$("more").addEventListener("click", () => {
+  shown += PAGE_SIZE;
+  render();
+});
 $("reset").addEventListener("click", () => {
   state = { ...DEFAULTS };
   syncForm();
   buildChips();
   changed();
+});
+$("filterToggle").addEventListener("click", (e) => {
+  const open = form.classList.toggle("open");
+  e.currentTarget.setAttribute("aria-expanded", open);
 });
 
 fetch("data/listings.json", { cache: "no-cache" })
