@@ -9,12 +9,13 @@ from datetime import datetime, timezone
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 
 import derstandard  # noqa: E402
+import findmyhome  # noqa: E402
 import immoscout  # noqa: E402
 import immowelt  # noqa: E402
 import willhaben  # noqa: E402
 from common import Session  # noqa: E402
 
-PLATFORMS = [willhaben, immoscout, immowelt, derstandard]
+PLATFORMS = [willhaben, immoscout, immowelt, findmyhome, derstandard]
 OUT = pathlib.Path(__file__).resolve().parent.parent / "docs" / "data" / "listings.json"
 DISTRICTS = OUT.parent / "bezirke.geojson"
 DISTRICTS_URL = (
@@ -63,6 +64,8 @@ def main():
     for mod in PLATFORMS:
         print(f"{mod.NAME} …")
         try:
+            if hasattr(mod, "PREVIOUS"):
+                mod.PREVIOUS = {k: v for k, v in prev_items.items() if v["platform"] == mod.NAME}
             items = mod.scrape(Session())
             seen = set()
             for item in items:
