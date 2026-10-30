@@ -1,10 +1,10 @@
-1 https://www.findmyhome.at/immo/wohnung-mieten/wien -> 200 https://www.findmyhome.at/immo/wohnung-mieten/wien 236948
-2 https://www.findmyhome.at/immo/wohnung/wien -> 200 https://www.findmyhome.at/immo/wohnung/wien 243953
-3 https://www.wohnnet.at/immobilien/suche -> 503 https://www.wohnnet.at/immobilien/nicht-verfuegbar 11805
-4 https://www.wohnnet.at/immobilien/ -> 503 https://www.wohnnet.at/immobilien/nicht-verfuegbar 11805
-5 https://www.wohnnet.at/llms.txt -> 200 https://www.wohnnet.at/llms.txt 1012496
-6 https://static.wohnnet.at/static/sitemaps/realties/sitemap_realties.xml -> 200 https://static.wohnnet.at/static/sitemaps/realties/sitemap_realties.xml 1545
-7 https://wohnberatung-wien.at/wohnungssuche/wohnungssuche -> 200 https://wohnberatung-wien.at/wohnungssuche/wohnungssuche 25215
-8 https://wohnberatung-wien.at/wohnungssuche/gefoerderter-wohnbau -> 200 https://wohnberatung-wien.at/wohnungssuche/gefoerderter-wohnbau 23831
-9 https://wohnberatung-wien.at/wohnungssuche/smart-wohnungen -> 200 https://wohnberatung-wien.at/wohnungssuche/smart-wohnungen 25529
-10 https://www.wohnnet.at/immobilien/mietwohnungen/wien?page=1 -> 503 https://www.wohnnet.at/immobilien/nicht-verfuegbar 11805
+1 https://www.findmyhome.at/immo/wohnung-mieten/wien?id=13&entry=0&sort=&dir=ASC&pp=100&vars=id%3A13%3Bw_m%3A1%3Bland%3AAT%3Bbl%3A9%3B&lang=de&module=select&list= -> curl: (28) Connection timed out after 30001 milliseconds
+000 https://www.findmyhome.at/immo/wohnung-mieten/wien?id=13&entry=0&sort=&dir=ASC&pp=100&vars=id%3A13%3Bw_m%3A1%3Bland%3AAT%3Bbl%3A9%3B&lang=de&module=select&list= 0
+2 https://www.findmyhome.at/boxes/search-filter.php?1=1&w_m=1&preisBis=1000&preisVon=&flaecheVon=40&flaecheBis=&zimmer=2&bundesland=9&bezirk=N-&plzv1= -> curl: (28) Connection timed out after 30001 milliseconds
+000 https://www.findmyhome.at/boxes/search-filter.php?1=1&w_m=1&preisBis=1000&preisVon=&flaecheVon=40&flaecheBis=&zimmer=2&bundesland=9&bezirk=N-&plzv1= 0
+3 https://www.findmyhome.at/5522503 -> curl: (28) Connection timed out after 30001 milliseconds
+000 https://www.findmyhome.at/5522503 0
+4 https://www.findmyhome.at/immo/wohnung-mieten/wien?id=13&entry=40&sort=&dir=ASC&pp=20&vars=id%3A13%3Bw_m%3A1%3Bland%3AAT%3Bbl%3A9%3Bpreis_bis%3A1000%3B&lang=de&module=select&list= -> curl: (28) Connection timed out after 30002 milliseconds
+000 https://www.findmyhome.at/immo/wohnung-mieten/wien?id=13&entry=40&sort=&dir=ASC&pp=20&vars=id%3A13%3Bw_m%3A1%3Bland%3AAT%3Bbl%3A9%3Bpreis_bis%3A1000%3B&lang=de&module=select&list= 0
+5 https://wohnberatung-wien.at/wohnungssuche/planungsprojekte/page -> 200 https://wohnberatung-wien.at/wohnungssuche/planungsprojekte/page 38595
+6 https://www.meinwohnticket.wien/willkommen -> 200 https://www.meinwohnticket.wien/willkommen 1900
