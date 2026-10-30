@@ -5,11 +5,14 @@ from common import MAX_PRICE, MIN_AREA, Session, is_swap, listing, outdoor_from_
 from lzstring import decompress_from_base64
 
 NAME = "immowelt"
-SEARCH = (
-    "https://www.immowelt.at/classified-search?distributionTypes=Rent&estateTypes=Apartment"
-    "&locations=AD08AT2093&priceMax={price}&spaceMin={area}&page={page}"
-)
-MAX_PAGES = 20
+# The classified-search endpoint is blocked for bots, the SEO search page is not. Which filter
+# parameter names it honours is not documented, so try a few and keep the one with the fewest hits.
+BASE = "https://www.immowelt.at/suche/mieten/wohnung/wien/wien-1010/ad08at2093"
+SEARCH_VARIANTS = [
+    BASE + "?priceMax={price}&spaceMin={area}&order=DateDesc&page={page}",
+    BASE + "?pma={price}&ami={area}&sort=createdate&cp={page}",
+]
+MAX_PAGES = 15
 
 SUBTYPE_OUTDOOR = {"TERRACE": "Terrasse", "GARDEN": "Garten", "BALCONY": "Balkon"}
 
@@ -70,12 +73,25 @@ def parse(html):
 
 
 def scrape(session: Session):
-    items = []
-    for page in range(1, MAX_PAGES + 1):
-        found, total = parse(session.get(SEARCH.format(price=MAX_PRICE, area=MIN_AREA, page=page)).text)
-        if page == 1:
-            print(f"  immowelt: {total} Treffer laut Suche")
-        items.extend(found)
-        if not found or len(items) >= total:
+    best = None
+    for template in SEARCH_VARIANTS:
+        try:
+            found, total = parse(session.get(template.format(price=MAX_PRICE, area=MIN_AREA, page=1)).text)
+        except Exception as e:
+            print(f"  immowelt: Variante fehlgeschlagen ({e})")
+            continue
+        print(f"  immowelt: {total} Treffer mit {template.split('?')[1]}")
+        if best is None or total < best[2]:
+            best = (template, found, total)
+    if best is None:
+        raise RuntimeError("keine Suchvariante erreichbar")
+    template, items, total = best
+    # Without working filters this is the newest ~450 listings of all Vienna, which is still useful.
+    for page in range(2, MAX_PAGES + 1):
+        if len(items) >= total:
             break
-    return items
+        found, _ = parse(session.get(template.format(price=MAX_PRICE, area=MIN_AREA, page=page)).text)
+        if not found:
+            break
+        items.extend(found)
+    return [x for x in items if (x["price"] is None or x["price"] <= MAX_PRICE) and (x["area"] is None or x["area"] >= MIN_AREA)]
