@@ -10,7 +10,9 @@ NAME = "immowelt"
 BASE = "https://www.immowelt.at/suche/mieten/wohnung/wien/wien-1010/ad08at2093"
 SEARCH_VARIANTS = [
     BASE + "?priceMax={price}&spaceMin={area}&order=DateDesc&page={page}",
-    BASE + "?pma={price}&ami={area}&sort=createdate&cp={page}",
+    "https://www.immowelt.at/suche/mieten/wohnung/guenstig/wien/wien-1010/ad08at2093?order=DateDesc&page={page}",
+    "https://www.immowelt.at/classified-search?distributionTypes=Rent&estateTypes=Apartment"
+    "&locations=AD08AT2093&priceMax={price}&spaceMin={area}&order=DateDesc&page={page}",
 ]
 MAX_PAGES = 15
 
@@ -83,10 +85,10 @@ def scrape(session: Session):
             found, total = parse(session.get(template.format(price=MAX_PRICE, area=MIN_AREA, page=1)).text)
         except Exception as e:
             print(f"  immowelt: Variante fehlgeschlagen ({e})")
-            INFO[template.split("?")[1].split("&")[0]] = {"error": str(e)[:120]}
+            INFO[template.split("/")[-2] + "?" + template.split("?")[1].split("&")[0]] = {"error": str(e)[:120]}
             continue
         print(f"  immowelt: {total} Treffer mit {template.split('?')[1]}")
-        INFO[template.split("?")[1].split("&")[0]] = {"total": total, "page1": len(found)}
+        INFO[template.split("/")[-2] + "?" + template.split("?")[1].split("&")[0]] = {"total": total, "page1": len(found)}
         if best is None or total < best[2]:
             best = (template, found, total)
     if best is None:
