@@ -1,6 +1,4 @@
+https://www.findmyhome.at/immo/wohnung-mieten/wien
 https://www.findmyhome.at/immo/wohnung-mieten/wien?id=13&entry=0&sort=&dir=ASC&pp=100&vars=id%3A13%3Bw_m%3A1%3Bland%3AAT%3Bbl%3A9%3B&lang=de&module=select&list=
-https://www.findmyhome.at/boxes/search-filter.php?1=1&w_m=1&preisBis=1000&preisVon=&flaecheVon=40&flaecheBis=&zimmer=2&bundesland=9&bezirk=N-&plzv1=
 https://www.findmyhome.at/5522503
-https://www.findmyhome.at/immo/wohnung-mieten/wien?id=13&entry=40&sort=&dir=ASC&pp=20&vars=id%3A13%3Bw_m%3A1%3Bland%3AAT%3Bbl%3A9%3Bpreis_bis%3A1000%3B&lang=de&module=select&list=
-https://wohnberatung-wien.at/wohnungssuche/planungsprojekte/page
-https://www.meinwohnticket.wien/willkommen
+https://www.findmyhome.at/boxes/search-filter.php?1=1&w_m=1&preisBis=1000&preisVon=&flaecheVon=40&flaecheBis=&zimmer=2&bundesland=9&bezirk=N-&plzv1=

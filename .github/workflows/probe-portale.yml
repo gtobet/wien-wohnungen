@@ -17,7 +17,7 @@ jobs:
           while read -r u; do
             [ -z "$u" ] && continue
             i=$((i+1))
-            code=$(curl -sSL --max-time 30 -A "$UA" -H "Accept-Language: de-AT,de;q=0.9" -o "probe/$i.html" -w "%{http_code} %{url_effective} %{size_download}" "$u" 2>&1 || true)
+            code=$(curl -sSL --max-time 60 -A "$UA" -H "Accept-Language: de-AT,de;q=0.9" -o "probe/$i.html" -w "%{http_code} %{url_effective} %{size_download}" "$u" 2>&1 || true)
             echo "$i $u -> $code" >> probe/index.txt
             sleep 1
           done < probe-urls.txt
