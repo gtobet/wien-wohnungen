@@ -1,0 +1,188 @@
+detail len 334501
+HTML: .hfjgKY:focus{box-shadow:0 0 0 3px var(--wh-color-main-complimentary-focus);}/*!sc*/
+
+HTML: .hfjgKY:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .eNaKek:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .eNaKek:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .kAnORR:focus{box-shadow:0 0 0 3px var(--wh-color-main-secondary-focus);}/*!sc*/
+
+HTML: .kAnORR:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .iNOjYn:focus{box-shadow:0 0 0 3px var(--wh-color-main-complimentary-focus);}/*!sc*/
+
+HTML: .iNOjYn:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .ZMTAP:focus{box-shadow:0 0 0 3px var(--wh-color-main-secondary-focus);}/*!sc*/
+
+HTML: .ZMTAP:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .jwBPee:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .jwBPee:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .fImFHC:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .fImFHC:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .eBARuK:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .eBARuK:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .kFMWIn:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .kFMWIn:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .cMpWRM:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .cMpWRM:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .hlVzSr:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .hlVzSr:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .bwGSuS:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .bwGSuS:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .kEkmkz:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .kEkmkz:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .gIIlcq:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .gIIlcq:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .bImGoL:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .bImGoL:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .evEXK:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .evEXK:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .jbGaSA:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .jbGaSA:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .glLsMi:focus{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .glLsMi:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .dvhrot{display:flex;border:1px solid;border-radius:4px;background-color:var(--wh-color-basic-surface);overflow:hidden;transition:box-shadow 0.2s;border-color:var(--wh-color-basic-outline);}/*!sc*/
+
+HTML: .dvhrot:focus-within{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .gyRCaI{width:100%;min-width:0;padding:0.375em 0.75em;color:var(--wh-color-typo-main-foreground);background-color:var(--wh-color-basic-surface);border:0;outline:0;-webkit-appearance:none;border-radius:0;margin:0;box-shadow:inset 1px 1px 2px 0 rgba(0,0,0,0.1);height:46px;font-size:1rem;}/*!sc*/
+
+HTML: .gyRCaI:disabled{background-color:var(--wh-color-basic-background);color:var(--wh-color-inactive-inactive-foreground);box-shadow:none;cursor:not-allowed;-webkit-opacity:1;-webkit-text-fill-color:var(--wh-color-inactive-inactive-foreground);}/*!sc*/
+
+HTML: .jaRArm:focus+div .Checkbox__StyledCheckbox-sc-7kkiwa-9{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .jaRArm:focus:not(:focus-visible)+div .Checkbox__StyledCheckbox-sc-7kkiwa-9{box-shadow:none;}/*!sc*/
+
+HTML: .lomBHd{resize:vertical;height:auto;width:100%;min-width:0;padding:0.375em 0.75em;color:var(--wh-color-typo-main-foreground);background-color:var(--wh-color-basic-surface);border:0;outline:0;-webkit-appearance:none;border-radius:0;margin:0;box-shadow:inset 1px 1px 2px 0 rgba(0,0,0,0.1);padding-top:12px;padding-bottom:12px;font-size:1rem;}/*!sc*/
+
+HTML: .lomBHd:disabled{background-color:var(--wh-color-basic-background);color:var(--wh-color-inactive-inactive-foreground);box-shadow:none;cursor:not-allowed;-webkit-opacity:1;-webkit-text-fill-color:var(--wh-color-inactive-inactive-foreground);}/*!sc*/
+
+HTML: .jhrcuT{display:flex;border:1px solid;border-radius:4px;background-color:var(--wh-color-basic-surface);overflow:hidden;transition:box-shadow 0.2s;height:48px;border-color:var(--wh-color-basic-outline);}/*!sc*/
+
+HTML: .jhrcuT:focus-within{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);}/*!sc*/
+
+HTML: .kUQdTn{padding:0 0.75em;border:0;outline:0;border-radius:0;background-color:var(--wh-color-basic-surface);color:var(--wh-color-typo-main-foreground);transition:box-shadow 0.2s;-webkit-appearance:none;appearance:none;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDE3LjUzYTEgMSAwIDAxLS43LS4yOWwtOS05YTEgMSAwIDAxMC0xLjQxIDEgMSAwIDAxMS40MSAwTDEyIDE1LjEybDguMy04LjI5YTEgMSAwID
+
+HTML: .Toastify__toast.Toastify__toast{display:block;min-height:auto;margin:0;padding:0;border-radius:4px;box-shadow:0 0 16px 4px rgba(0,0,0,0.05),0 2px 4px rgba(0,0,0,0.1);}/*!sc*/
+
+HTML: .gZRwCb{background-color:var(--wh-color-basic-surface);outline:0;z-index:600;box-shadow:0 4px 16px 0 var(--wh-color-system-shadow-container);}/*!sc*/
+
+HTML: .ifwyxJ{position:absolute;box-shadow:0 0 12px 0 var(--wh-color-system-shadow-container);transition:transform 0ms ease;bottom:0;right:0;left:0;transform:translateY(100%);}/*!sc*/
+
+HTML: .kXQAEL{position:absolute;box-shadow:0 0 12px 0 var(--wh-color-system-shadow-container);transition:transform 400ms ease;top:0;bottom:0;left:0;transform:translateX(-100%);width:300px;}/*!sc*/
+
+HTML: .fEUqgY:focus{box-shadow:rgb(152,226,255) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .fEUqgY:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .fFvYhj:focus{box-shadow:rgb(152,226,255) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .fFvYhj:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: -offset),env(safe-area-inset-left));--toastify-toast-bottom:max(var(--toastify-toast-offset),env(safe-area-inset-bottom));--toastify-toast-background:#fff;--toastify-toast-padding:14px;--toastify-toast-min-height:64px;--toastify-toast-max-height:800px;--toastify-toast-bd-radius:6px;--toastify-toast-shadow:0px 4px 12px rgba(0,0,0,0.1);--toastify-font-family:sans-serif;--toastify-z-index:9999;--toastify-text-color-light:#757575;--toastify-text-color-dark:#fff;--toastify-text-color-info:#fff;--toastify-text-color-success:#fff;--toastify-text-color-warning:#fff;--toastify-text-color-error:#fff;--toastif
+
+HTML: .Toastify__toast{--y:0px;position:relative;touch-action:none;width:var(--toastify-toast-width);min-height:var(--toastify-toast-min-height);box-sizing:border-box;margin-bottom:1rem;padding:var(--toastify-toast-padding);border-radius:var(--toastify-toast-bd-radius);box-shadow:var(--toastify-toast-shadow);max-height:var(--toastify-toast-max-height);font-family:var(--toastify-font-family);z-index:0;display:flex;flex:1 auto;align-items:center;word-break:break-word;}/*!sc*/
+
+HTML: success-container:#d6f4de;--wh-color-alert-warning:#ff9500;--wh-color-alert-warning-container:#ffeacc;--wh-color-icon-dualcolored-stroke:#000f5a;--wh-color-icon-dualcolored-fill:#19afff;--wh-color-inactive-inactive-foreground:#b1b1b1;--wh-color-inactive-inactive-background:#e7e7e7;--wh-color-system-shadow:#000000;--wh-color-system-shadow-container:#00000080;}/*!sc*/
+
+HTML: success-container:#2d4d36;--wh-color-alert-warning:#ff9f0a;--wh-color-alert-warning-container:#564327;--wh-color-icon-dualcolored-stroke:#19afff;--wh-color-icon-dualcolored-fill:#003796;--wh-color-inactive-inactive-foreground:#616161;--wh-color-inactive-inactive-background:#1f1f1f;--wh-color-system-shadow:#000000;--wh-color-system-shadow-container:#00000080;}/*!sc*/
+
+HTML: success-container:#d6f4de;--wh-color-alert-warning:#955d09;--wh-color-alert-warning-container:#ffeacc;--wh-color-icon-dualcolored-stroke:#000f5a;--wh-color-icon-dualcolored-fill:#19afff;--wh-color-inactive-inactive-foreground:#666666;--wh-color-inactive-inactive-background:#e7e7e7;--wh-color-system-shadow:#000000;--wh-color-system-shadow-container:#00000080;}/*!sc*/
+
+HTML: .react-top-loading-bar::after{content:'';position:absolute;left:calc(100% - 5%);width:5%;height:100%;background-color:var(--wh-color-main-primary);box-shadow:0px 0px 10px var(--wh-color-main-primary),0px 0px 10px var(--wh-color-main-primary);transform:rotate(2deg) translate(0px,-2px);transition:500ms;opacity:1;pointer-events:none;}/*!sc*/
+
+HTML: .frJjvd:focus{box-shadow:var(--wh-color-main-primary-focus) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .frJjvd:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .euMhFo:focus{box-shadow:var(--wh-color-main-primary-focus) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .euMhFo:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .gUIsVI:focus{box-shadow:var(--wh-color-main-primary-focus) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .gUIsVI:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .dSOOne:focus{box-shadow:var(--wh-color-main-primary-focus) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .dSOOne:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .gTNxvS:focus{box-shadow:var(--wh-color-main-primary-focus) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .gTNxvS:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .iYFsxq:focus{box-shadow:var(--wh-color-main-primary-focus) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .iYFsxq:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .cxJind:focus{box-shadow:var(--wh-color-main-primary-focus) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .cxJind:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .emNYzj:focus{box-shadow:var(--wh-color-main-primary-focus) 0 0 0 3px;border-radius:4px;}/*!sc*/
+
+HTML: .emNYzj:focus:not(:focus-visible){box-shadow:none;}/*!sc*/
+
+HTML: .byLlXo{box-shadow:0px 0px 0px 1px transparent;}/*!sc*/
+
+HTML: .coUNym:focus-visible{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);outline:none;}/*!sc*/
+
+HTML: .lcwuut:focus-visible{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);outline:none;}/*!sc*/
+
+HTML: .lcwuut>:focus-visible{box-shadow:0 0 0 3px var(--wh-color-main-primary-focus);outline:none;}/*!sc*/
+
+HTML: .bzwGyJ{border-top:1px solid var(--wh-color-basic-outline);box-shadow:0 0 6px -1px var(--wh-color-deprecated-safari15-black-alpha80);box-shadow:0 0 6px -1px color-mix(in srgb,var(--wh-color-system-shadow),transparent 80%);}/*!sc*/
+
+HTML: .blFOdz{box-shadow:0 4px 8px -4px var(--wh-color-deprecated-safari15-black-alpha70);box-shadow:0 4px 8px -4px color-mix(in srgb,var(--wh-color-system-shadow),transparent 70%);}/*!sc*/
+
+HTML: dateDOM()})('bbx-theme')</script><div class="react-top-loading-bar-container" style="position:fixed;top:0;left:0;height:2px;background:transparent;z-index:99999999999;width:100%"><div class="react-top-loading-bar" style="height:100%;background:red;transition:all 500ms ease;width:0%"><div style="box-shadow:0 0 10px red, 0 0 10px red;width:5%;opacity:1;position:absolute;height:100%;transition:all 500ms ease;transform:rotate(2deg) translate(0px, -2px);left:-10rem"></div></div></div><div class="Box-sc-wfmb7k-0 dNayVz"><ul id="skip-to-content-container" class="sc-81efd3f3-0 jalSAI"></ul><div id="top-scro
+
+HTML: values":["Baumergasse 10"]},{"name":"LOCATION/ADDRESS_2","values":["Wien, 21. Bezirk, Floridsdorf"]},{"name":"LOCATION/ADDRESS_3","values":["Wien"]},{"name":"LOCATION/ADDRESS_4","values":["Wien"]},{"name":"COORDINATES","values":["48.276,16.4071"]},{"name":"SHOW_MAP","values":["true"]},{"name":"SHOW_SHADOWMAP","values":["true"]},{"name":"CONTACT/COMPANY","values":["Rustler Immobilientreuhand GesmbH"]},{"name":"CONTACT/URL","values":["www.makler.rustler.eu"]},{"name":"CONTACT/ADDRESS_STREET","values":["Mariahilfer Straße 196"]},{"name":"CONTACT/ADDRESS_POSTCODE","values":["1150"]},{"name":"CONTACT/ADD
+
+18 chunks
+JS /_next/static/chunks/1792-493b73d3c7d07d9b.js: ta,geoData:eG,currentObject:eU,visibilityTrackingRef:eW,isInView:eH}),(0,r.jsxs)(iQ,{display:"flex",flexDirection:"column",gap:"s",children:[(0,r.jsx)(v.r,{text:"Objektstandort"}),b&&(0,r.jsx)(U.b,{address:b}),"none"!==eG.type&&(0,r.jsx)(tS.M,{offset:"300px",renderPlaceholder:e=>(0,r.jsx)(ee.Box,{ref:e,height:180,testId:"ad-detail-map-dynamic-placeholder"}),children:(0,r.jsx)(M.r,{height:180,center:eG.coordinates,circle:"radius"===eG.type?eG.radius:void 0,adId:h.id,taggingData:h.taggingData,showShadowmapButton:"exact"===eG.type?eG.displayShadowmapButton:void 0,address:b})},"ad-detail-map")]}),(0,r.jsx)(Y,{formattedAttributes:h.formattedAttributes}),(0,r.jsx)(J.x,{formattedAttributes:h.formattedAttributes})]}),right:(0,r.jsx)(ee.Box,{paddingHorizontal:{phone:"m",tablet:0},children:(0,r.jsx)(ei,{formattedAttributes:h.formattedAttributes,adTypeId:h.adTypeId,pricePerSqmeter:eC})})}),(0,r.jsx)(tO.n,{order:4,marginBottom:{phone:"m",tablet:"l"},separator:!0,left:(0,r.jsx)(l.Fragment,{children:(0,r.jsx)(iL,{advertDetails:h})}),right:(0,r.jsxs)(ee.Box,{display:"flex",gap:"m",flexDirection:"column",children:[(0,r.jsx)(iy.F,{attributes:h.formattedAttributes.attribute,paddingHorizontal:{phone:"m",tablet:0}}),(0,r.jsx)(iw.e,{formattedAttributes:h.formattedAttributes,paddingHorizontal:{phone:"m",tablet
+
+JS /_next/static/chunks/6516-d8cdf5b756874d2d.js: ,s=a(51710),l=a(55729),d=a(71024),c=a.n(d),u=a(64051),h=a(65626),m=a(30341),p=a(72712),g=a(77191),x=a(70398),f=a(25907),v=a(55544),b=a(3853),y=a(97515),_=a(70725),k=a(77867),I=a(26657),w=c()(()=>Promise.all([a.e(6593),a.e(362),a.e(4785),a.e(8635)]).then(a.bind(a,18635)).then(e=>e.LeafletMap),{loadableGenerated:{webpack:()=>[18635]},ssr:!1,loading:()=>(0,o.jsx)(m.Box,{height:"100%",width:"100%",borderRadius:"m",backgroundColor:"palette.polarbear"})}),j=(0,l.memo)(e=>{var{adId:t,taggingData:a,showShadowmapButton:s,address:d}=e,c=(0,r._)(e,["adId","taggingData","showShadowmapButton","address"]),g=S(),[f,v]=(0,l.useState)(!1),[k,j]=(0,l.useState)(!1),[A,D]=(0,l.useState)(!1),B=s&&(null==d?void 0:d.street)&&c.center?"https://willhaben-immoaddetail.poweredby.shadowmap.org/?lat=".concat(c.center[0],"&lng=").concat(c.center[1],"&zoom=18.5"):null,R=()=>{D(!0),(0,h.L5)("estate_addetail_shadowmap",a),v(!0)},N=[{position:"bottomright",element:(0,o.jsx)(u.Pd,{type:"button",href:"/iad/mapobject?adId=".concat(t),Icon:p.A,size:"small",color:"primary",variant:"outline",testId:"open-fullscreen-map",onClick:()=>(0,h.L5)("addetail_map_click",a),children:"Karte \xf6ffnen"})}];return B&&N.push({position:"bottomleft",element:(0,o.jsx)(y.Button,{type:"button",Icon:x.A,size:"small",color:"primary",variant:"outlin
+
+JS /_next/static/chunks/6516-d8cdf5b756874d2d.js: e",testId:"open-shadowmap",onClick:R,children:"Lichtverh\xe4ltnisse"})}),g?null:(0,o.jsxs)(l.Fragment,{children:[(0,o.jsx)(m.Box,{height:c.height,children:(0,o.jsx)(w,(0,i._)((0,n._)({borderRadius:"m",overflow:"hidden"},c),{controls:N}))}),s&&(0,o.jsxs)(C,{display:"flex",alignItems:"center",gap:"m",backgroundColor:"palette.special.lemon20",border:"none",onClick:R,role:"button",children:[(0,o.jsx)(m.Box,{minWidth:"40px",minHeight:"40px",backgroundImage:"url(".concat("/bbx-search/_next/static/assets/icon_shadowmap_sun.38b2bf32ddefb858.svg",")")}),(0,o.jsxs)(m.Box,{children:[(0,o.jsx)(_.Text,{fontWeight:"bold",as:"p",children:"Jetzt Lichtverh\xe4ltnisse visualisieren!"}),(0,o.jsx)(_.Text,{as:"p",children:"Entdecke wie die Sonne durch die Fenster deines Wohntraums lacht."})]}),(0,o.jsx)(I.default,{marginLeft:"auto"})]
+
+JS /_next/static/chunks/6516-d8cdf5b756874d2d.js: }),A&&B&&(null==d?void 0:d.street)&&(0,o.jsxs)(E,{isOpen:f,setIsOpen:v,fullScreen:{phone:!0,tablet:!1},header:"Lichtverh\xe4ltnisse f\xfcr ".concat(d.street),children:[!k&&(0,o.jsx)(T,{position:"absolute",top:0,right:0,bottom:0,left:0,display:"flex",justifyContent:"center",alignItems:"center",testId:"shadowmap-spinner",children:(0,o.jsx)(b.Spinner,{})}),(0,o.jsx)(L,{src:B,title:"Shadowmap",allow:"autoplay; fullscreen","data-testid":"shadowmap-iframe-tenant-overview",onLoad:()=>{j(!0)},"aria-label":"Shadowmap"})]})]})}),S=()=>{var e,t=(0,g.eG)().uaParserResult;if(!t||(null==(e=t.browser.name)?void 0:e.toLowerCase())!=="chrome"||!t.browser.version)return!1;var a=t.browser.version.split(".")[0];if(!a)return!1;var n=parseInt(a,10);return!isNaN(n)&&n<=38},A=(0,s.keyframes)(["from{opacity:0;}to{opacity:1;}"]),T=(0,s.default)(m.Box).withConfig({componentId:"sc-616ffb37-0"})(["animation:"," 0.25s ease-in 1s both;"],A),C=(0,s.default)(k.Z).withConfig({componentId:"sc-616ffb37-1"})(["cursor:pointer;"]),E=(0,s.default)(f.c).withConfig({componentId:"sc-616ffb37-2"})(["max-width:100dvw;max-height:100dvhw;width:100dvw;height:110dvh;@media screen and (min-width:","px){width:90svw;height:90svh;}"],e=>e.theme.breakpoints.tablet),L=(0,s.default
+
+JS /_next/static/chunks/6516-d8cdf5b756874d2d.js: ;if(s)return s.openingHours.some(e=>i()(a).isBetween(n(e.timeFrom),n(e.timeTo),"minute","[]"))}return!1}},58825:(e,t,a)=>{a.d(t,{r:()=>s});var n=a(87011),i=a(92424),r=a(6029);a(55729);var o=a(99469),s=e=>{var{ref:t}=e,a=(0,i._)(e,["ref"]);return(0,r.jsx)(o.D,(0,n._)({level:2,fontSize:{phone:"l",tablet:"xl"},ref:t},a))}},61369:(e,t,a)=>{a.d(t,{F:()=>s});var n=a(24904),i=a(55729),r=a(57746),o=a(14628),s=e=>{var t=e.verticalId===o.mU[o.k1.ESTATE],{coordinates:a,radius:s,areAccurate:l,areSuitableForShadowmap:d}=(e=>{var t=(0,i.useMemo)(()=>(0,r._)(e),[e]),a=(0,n.ul)(e.attributes.attribute,"POSITION_RADIUS_METERS"),o="true"===(0,n.ul)(e.attributes.attribute,"SHOW_MAP"),s="true"===(0,n.ul)(e.attributes.attribute,"SHOW_SHADOWMAP");return{coordinates:t,radius:a?parseInt(a,10):void 0,areAccurate:o,areSuitableForShadowmap:s}})(e);return a&&l?t&&s?{type:"radius",coordinates:a,radius:s}:{type:"exact",coordinates:a,displayShadowmapButton:d}:{type:"none"}}},61610:(e,t,a)=>{a.d(t,{Fz:()=>i,Il:()=>o,ZZ:()=>r});var n=a(43396),i=e=>(0,n.GO)("/iad-messaging/sendrequest",{method:"POST",body:JSON.stringify(e),credentials:"include"}),r=e=>(0,n.GO)("/iad-messaging/sendrequest/chat",{method:"POST",body:JSON.stringify(e),credentials:"include"}),o=e=>(0,n.GO)("/iad-messaging/conversation/init/".concat(e,"?chatSyst
+
+JS /_next/static/chunks/pages/_app-eac41a8515dd28da.js: ,send_error:{click:"SendError",s2:"Annexes"},mywillhaben_myprofile_save:{click:"MyProfile::Save",s2:"Mein Willhaben"},mywillhaben_myprofile_seller_profile:{click:"MyProfile::SellerProfile",s2:"Mein Willhaben"},mywillhaben_myprofile_privacy_policy:{click:"MyProfile::PrivacyPolicy",s2:"Mein Willhaben"},mywillhaben_edittenant:{click:"MyWillhaben::MyTenantProfile",s2:"Mein Willhaben"},mywillhaben_edittenant_save:{click:"MyWillhaben::MyTenantProfile::Save",s2:"Mein Willhaben"},mywillhaben_edittenant_shadowmap:{click:"MyWillhaben::MyTenantProfile::Tenantoverview::Shadowmap",s2:"Mein Willhaben"},mywillhaben_lessor_lessoroverview_messagelink_click:{click:"MyWillhaben::Lessor::MyLessoroverview::Messaginglink",s2:"Mein Willhaben"},mywillhaben_lessor_lessoroverview_showtenantprofile_click:{click:"MyWillhaben::Lessor::MyLessoroverview::ShowTenantProfile",s2:"Mein Willhaben"},mywillhaben_lessor_lessoroverview_requesttenantprofile_click:{click:"MyWillhaben::Lessor::MyLessoroverview::RequestTenantProfile",s2:"Mein Willhaben"},mywillhaben_tenantoverview_ad_click:{click:"MyWillhaben::MyTenantProfile::Tenantoverview::Ad",s2:"Mein Willhaben"},mywillhaben_tenantoverview_messagelink_click:{click:"MyWillhaben::MyTenantProfile::Tenantoverview::Messaginglink",s2:"Mein Willhaben"},mywillhaben_tenantoverview_revok
+
+JS /_next/static/chunks/pages/_app-eac41a8515dd28da.js: hare_create_tenant_profile_b2c:{click:"AdDetail::ContactSeller::CreateTenantProfile::B2C",s2:"Immobilien"},estate_addetail_rental_share_create_tenant_profile_c2c:{click:"AdDetail::ContactSeller::CreateTenantProfile::C2C",s2:"Immobilien"},estate_addetail_rental_share_tenant_profile_b2c:{click:"AdDetail::ContactSeller::ShareTenantProfile::B2C",s2:"Immobilien"},estate_addetail_rental_share_tenant_profile_c2c:{click:"AdDetail::ContactSeller::ShareTenantProfile::C2C",s2:"Immobilien"},estate_addetail_shadowmap:{click:"AdDetail::Shadowmap",s2:"Immobilien"},content_page_srl_ad_click:{click:"ContentPage::SearchResultList::".concat(s,"::Ad"),s2:o},content_page_srl_show_all:{click:"ContentPage::SearchResultList::".concat(s,"::ShowAll"),s2:o},mytransactions_overview_filter_click:{click:"MyTransactions::".concat((0,d.a)(n.mytransactions_target),"::Filter::").concat((0,d.a)(n.mytransactions_filter)),s2:"Mein Willhaben"},mytransactions_overview_empty_state_action_click:{click:"MyTransactions::".concat((0,d.a)(n.mytransactions_target),"::EmptyState::").concat((0,d.a)(n.mytransactions_empty_state_action)),s2:"Mein Willhaben"},mytransactions_detailpage_show_modal:{click:"MyTransactions::".concat((0,d.a)(n.mytransactions_target),"::MyTransactionsDetailPage"),s2:"Mein Willhaben"},mytransactions_detailpage_li
+
+JS /_next/static/chunks/pages/_app-eac41a8515dd28da.js: O=(e=>(e.URL="url",e.STORY="story",e.ASSET="asset",e.EMAIL="email",e))(eO||{});let eT=e=>{if("object"!=typeof e||typeof e._editable>"u")return{};try{let t=JSON.parse(e._editable.replace(/^<!--#storyblok#/,"").replace(/-->$/,""));return t?{"data-blok-c":JSON.stringify(t),"data-blok-uid":`${t.id}-${t.uid}`}:{}}catch{return{}}};var ej=r(92424),eR=r(38705),eP=["youtube-nocookie.com","youtube.com","app.23degrees.io","test-wh-taas.2trde.com","test-taas.2trde.com","taas.2trde.com","willhaben.poweredby.shadowmap.org"],eM=e=>{var{blok:t}=e,r=t.url;if(r.startsWith("http://")||r.startsWith("https://")||(r="https://".concat(r)),!(0,eR.AY)(r))return(0,o.jsx)(f.Text,(0,k._)((0,h._)({color:"palette.signal.red",fontWeight:"bold"},eT(t)),{children:"URL ist ung\xfcltig"}));var n=r.substring(r.indexOf("//")+2);if(!eP.find(e=>n.startsWith(e)||n.startsWith("www.".concat(e))))return(0,o.jsxs)(f.Text,(0,k._)((0,h._)({color:"palette.signal.red",fontWeight:"bold"},eT(t)),{children:["Keine g\xfcltige Domain angegeben.",(0,o.jsx)("br",{}),"Zum Erlauben der Domain beim Search-Tribe melden."]}));var i=t.height.includes("/"),a="".concat(t.height).concat(t.height.endsWith("px")?"":"px"),s=t.url.indexOf("app.23degrees.io")>=0?"Shadowmap":"Youtube Video";return(0,o.jsx)(eD,(0,k._)((0,h._)({height:i?void 0:a},eT(t)),{$_cs
+
