@@ -1,0 +1,39 @@
+name: Angebote aktualisieren
+
+on:
+  schedule:
+    # 05:15, 11:15 und 17:15 UTC (Wien: 06:15/12:15/18:15 im Winter, eine Stunde später im Sommer)
+    - cron: "15 5,11,17 * * *"
+  workflow_dispatch:
+  push:
+    branches: [claude/wohnungs-app]
+    paths: [scraper/**, .github/workflows/update.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-listings
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python scraper/run.py
+      - name: Daten committen
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/listings.json
+          if git diff --cached --quiet; then echo "Keine Änderungen"; exit 0; fi
+          git commit -m "Angebote aktualisiert"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
