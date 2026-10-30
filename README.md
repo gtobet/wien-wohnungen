@@ -8,6 +8,7 @@ Sammelt Wiener Mietwohnungen von mehreren Plattformen und zeigt sie in einer kle
   - **willhaben**: `__NEXT_DATA__` der Suchseite (Preis ≤ 1000 €, ab 40 m², 90 Treffer pro Seite)
   - **ImmoScout24**: `window.__INITIAL_STATE__` der Regionalsuche Wien
   - **immowelt**: komprimierte Suchdaten (`classified-serp-init-data`, lz-string) der Suchseite. Eingeschränkt: Die Suchseite ignoriert Preis- und Flächenfilter und die filterbare Suche sperrt Bots, daher werden nur die ersten 10 Seiten (300 Angebote) von ganz Wien gelesen und lokal gefiltert.
+  - **findmyhome.at**: HTML-Ergebnisliste von ganz Wien (30 pro Seite), lokal gefiltert. Für neue passende Angebote wird einmalig die Detailseite gelesen (Fotos, Adresse, Freiflächen); bekannte Angebote übernehmen das aus dem letzten Lauf.
   - **derStandard**: von GitHub-Servern aus gesperrt (nur aus Österreich erreichbar), wird im Status als nicht erreichbar angezeigt
 - `scraper/run.py` schreibt alles nach `docs/data/listings.json` und merkt sich, wann ein Angebot zum ersten Mal gesehen wurde. Fällt eine Plattform aus, bleiben ihre letzten Angebote erhalten und die App zeigt eine Warnung.
 - Der Workflow `.github/workflows/update.yml` läuft dreimal täglich (05:15, 11:15, 17:15 UTC) und lässt sich unter *Actions → Angebote aktualisieren → Run workflow* auch manuell starten.
@@ -36,7 +37,7 @@ Der Button startet den Workflow über die GitHub-API. Dafür braucht der Browser
 
 ## Hinweise
 
-- Preise stehen so drin, wie die Plattform sie liefert. Bei willhaben ist das meist die Gesamtmiete, bei immowelt die Nettokaltmiete.
+- Preise stehen so drin, wie die Plattform sie liefert. Bei willhaben ist das meist die Gesamtmiete, bei immowelt die Nettokaltmiete, bei findmyhome.at die monatlichen Gesamtkosten.
 - Freifläche wird aus den Plattform-Merkmalen und aus Titel/Beschreibung („Balkon“, „Terrasse“, „Loggia“, „Garten“) erkannt und kann daher fehlen oder (selten) falsch sein.
 - Die Plattformen erlauben automatisiertes Auslesen laut AGB nicht. Das Projekt ist nur für den privaten Gebrauch gedacht und fragt wenige Seiten pro Lauf mit Pausen ab.
 
