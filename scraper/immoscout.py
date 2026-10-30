@@ -18,6 +18,10 @@ BADGE_OUTDOOR = {
 }
 
 
+def _large(src):
+    return re.sub(r"legacy_thumbnail/\d+x\d+", "legacy_thumbnail/716x512", src)
+
+
 def _state(html):
     m = re.search(r"window\.__INITIAL_STATE__=(.*?)</script>", html, re.S)
     if not m:
@@ -40,7 +44,8 @@ def parse(html):
                 outdoor.append(extra)
         address = h.get("addressString") or ""
         pc = re.search(r"\b(1\d\d0)\b", address)
-        pic = (h.get("primaryPictureImageProps") or {}).get("src")
+        pics = [h.get("primaryPictureImageProps") or {}] + list(h.get("thumbnailPicturesImageProps") or [])
+        images = [_large(p["src"]) for p in pics if p.get("src")]
         out.append(
             listing(
                 id=f"is24-{h['exposeId']}",
@@ -55,7 +60,7 @@ def parse(html):
                 address=address,
                 outdoor=outdoor,
                 swap=is_swap(h.get("headline")),
-                image=pic,
+                images=images,
                 published=h.get("dateCreated"),
             )
         )

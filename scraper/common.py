@@ -12,6 +12,7 @@ UA = (
 # without touching the scraper.
 MAX_PRICE = 1000
 MIN_AREA = 40
+MAX_IMAGES = 12
 
 OUTDOOR_WORDS = {
     "balkon": "Balkon",
@@ -105,9 +106,15 @@ def listing(**kw):
         "outdoor": [],
         "swap": False,
         "image": None,
+        "images": [],
         "published": None,
     }
     base.update(kw)
+    if not base["images"] and base["image"]:
+        base["images"] = [base["image"]]
+    base["images"] = base["images"][:MAX_IMAGES]
+    if base["image"] is None and base["images"]:
+        base["image"] = base["images"][0]
     if base["district"] is None:
         base["district"] = district_from_postcode(base["postcode"])
     return base

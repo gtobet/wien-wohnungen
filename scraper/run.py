@@ -56,7 +56,7 @@ def main():
             status[mod.NAME]["last_ok"] = now
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps({"updated": now, "status": status, "listings": listings}, ensure_ascii=False, indent=1))
+    OUT.write_text(json.dumps({"updated": now, "status": status, "listings": listings}, ensure_ascii=False, separators=(",", ":")))
     print(f"{len(listings)} Angebote gespeichert in {OUT}")
 
 
