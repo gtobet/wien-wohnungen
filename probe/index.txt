@@ -1,0 +1,12 @@
+1 https://www.findmyhome.at/ -> 200 https://www.findmyhome.at/ 162306
+2 https://www.findmyhome.at/robots.txt -> 200 https://www.findmyhome.at/robots.txt 402
+3 https://www.findmyhome.at/mietwohnung/wien -> 404 https://www.findmyhome.at/mietwohnung/wien 280
+4 https://www.findmyhome.at/immobilien/wohnung-mieten/wien -> 404 https://www.findmyhome.at/immobilien/wohnung-mieten/wien 280
+5 https://www.wohnnet.at/ -> 200 https://www.wohnnet.at/ 144155
+6 https://www.wohnnet.at/robots.txt -> 200 https://www.wohnnet.at/robots.txt 596
+7 https://www.wohnnet.at/immobilien/mietwohnungen/wien -> 503 https://www.wohnnet.at/immobilien/nicht-verfuegbar 11805
+8 https://www.wohnnet.at/immobilien/wohnungen/miete/wien -> 503 https://www.wohnnet.at/immobilien/nicht-verfuegbar 11805
+9 https://wohnberatung-wien.at/ -> 200 https://wohnberatung-wien.at/ 57988
+10 https://wohnberatung-wien.at/robots.txt -> 404 https://wohnberatung-wien.at/robots.txt 12824
+11 https://wohnberatung-wien.at/wohnungssuche -> 200 https://wohnberatung-wien.at/wohnungssuche 47700
+12 https://www.wohnberatung-wien.at/wohnungssuche/gefoerderte-wohnungen -> 404 https://wohnberatung-wien.at/wohnungssuche/gefoerderte-wohnungen 12824
