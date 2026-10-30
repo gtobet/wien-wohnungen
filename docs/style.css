@@ -451,7 +451,24 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-app
 .shadow-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-2); }
 .shadow-link { color: var(--muted); white-space: nowrap; }
 .shadow-bar .btn { height: 30px; padding: 0 10px; }
+.shadow-stage { position: relative; flex: 1; display: flex; }
 .shadow-pane iframe { flex: 1; width: 100%; border: 0; background: var(--surface-2); }
+/* Shadowmap opens centred on the listing. The free version cannot highlight a building, so a
+   yellow ring marks the centre until the viewer starts moving the 3D view. */
+.shadow-pin {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 3px solid #fcc419;
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, .35), inset 0 0 0 2px rgba(0, 0, 0, .2);
+  pointer-events: none;
+  animation: shadow-pin 1.6s ease-in-out infinite;
+}
+@keyframes shadow-pin { 50% { transform: scale(1.25); opacity: .7; } }
 .pin {
   width: 12px;
   height: 12px;

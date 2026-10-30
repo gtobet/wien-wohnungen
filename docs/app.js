@@ -478,6 +478,11 @@ const mapView = {
     new Control().addTo(this.map);
     this.map.on("moveend", () => this.updateShadowLink());
     $("shadowClose").addEventListener("click", () => this.setShadow(false));
+    // A click into the iframe moves focus there; from then on the 3D view may be panned, so the
+    // centre ring would point at the wrong building.
+    window.addEventListener("blur", () => {
+      if (document.activeElement === $("shadowFrame")) $("shadowPin").hidden = true;
+    });
   },
 
   shadowOn: false,
@@ -510,6 +515,7 @@ const mapView = {
       this.updateShadowLink(true);
     } else {
       $("shadowFrame").removeAttribute("src");
+      $("shadowPin").hidden = true;
       this.shadowUrl = null;
       requestAnimationFrame(() => {
         this.map.invalidateSize();
@@ -529,6 +535,9 @@ const mapView = {
       if (url !== this.shadowUrl) {
         this.shadowUrl = url;
         $("shadowFrame").src = `${url}&time=${Date.now()}`;
+        const x = this.active;
+        if (document.activeElement === $("shadowFrame")) $("shadowFrame").blur();
+        $("shadowPin").hidden = !(x && x.geo);
       }
     };
     if (now) apply();
