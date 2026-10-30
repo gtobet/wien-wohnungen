@@ -1,0 +1,139 @@
+:root {
+  --bg: #f6f5f2;
+  --card: #ffffff;
+  --text: #1d1d1b;
+  --muted: #6b6a66;
+  --line: #e2e0da;
+  --accent: #b5452b;
+  --accent-soft: #f6e3dd;
+  --green: #2f7a4a;
+  --green-soft: #dff0e4;
+  --warn: #9a6400;
+  --warn-soft: #fbefd6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161615;
+    --card: #20201e;
+    --text: #ecebe7;
+    --muted: #a3a19b;
+    --line: #34332f;
+    --accent: #e8805f;
+    --accent-soft: #3d2a23;
+    --green: #7bc995;
+    --green-soft: #1f3326;
+    --warn: #e6b45c;
+    --warn-soft: #3a2f19;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0 auto;
+  max-width: 860px;
+  padding: 16px;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+h1 { margin: 0 0 4px; font-size: 1.5rem; }
+.muted { color: var(--muted); }
+header p { margin: 2px 0; font-size: .9rem; }
+.sources span { margin-right: 10px; white-space: nowrap; }
+.sources .bad { color: var(--warn); }
+
+form {
+  margin: 16px 0;
+  padding: 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.row { display: flex; flex-wrap: wrap; gap: 10px 16px; }
+.row label { display: flex; flex-direction: column; font-size: .85rem; color: var(--muted); }
+.row label .unit { display: none; }
+input[type=number], select {
+  width: 120px;
+  margin-top: 3px;
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+fieldset { border: 0; padding: 0; margin: 12px 0 0; }
+legend { font-size: .85rem; color: var(--muted); margin-bottom: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+}
+.chip[aria-pressed=true] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.toggles { margin-top: 12px; flex-direction: column; gap: 6px; }
+.toggles .switch { flex-direction: row; align-items: center; gap: 8px; color: var(--text); font-size: .9rem; }
+button.link {
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.count { font-weight: 600; }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.item {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 12px;
+  padding: 10px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.item.hidden { opacity: .5; }
+.thumb {
+  width: 112px;
+  height: 84px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--line);
+}
+.item h2 { margin: 0 0 4px; font-size: 1rem; line-height: 1.3; overflow-wrap: anywhere; }
+.item h2 a { color: inherit; text-decoration: none; }
+.item h2 a:hover { text-decoration: underline; }
+.facts { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: .9rem; }
+.facts .price { font-weight: 700; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; align-items: center; font-size: .8rem; }
+.tag { padding: 1px 8px; border-radius: 999px; background: var(--bg); border: 1px solid var(--line); }
+.tag.new { background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 600; }
+.tag.out { background: var(--green-soft); border-color: transparent; color: var(--green); }
+.actions { margin-left: auto; display: flex; gap: 4px; }
+.actions button {
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 2px 8px;
+  font: inherit;
+  font-size: .8rem;
+  cursor: pointer;
+}
+.actions button[aria-pressed=true] { background: var(--warn-soft); border-color: transparent; }
+footer { margin: 24px 0 8px; font-size: .8rem; }
+
+@media (max-width: 520px) {
+  .item { grid-template-columns: 1fr; }
+  .thumb { width: 100%; height: 160px; }
+  input[type=number], select { width: 100%; }
+  .row > label { flex: 1 1 40%; }
+}

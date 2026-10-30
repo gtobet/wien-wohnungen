@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wien Wohnungen</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Wien Wohnungen</h1>
+  <p id="meta" class="muted">Lade Daten …</p>
+  <p id="sources" class="sources"></p>
+</header>
+
+<form id="filters" autocomplete="off">
+  <div class="row">
+    <label>Miete bis <span class="unit">€</span>
+      <input type="number" name="maxPrice" inputmode="numeric" step="10" min="0">
+    </label>
+    <label>Fläche ab <span class="unit">m²</span>
+      <input type="number" name="minArea" inputmode="numeric" step="1" min="0">
+    </label>
+    <label>Zimmer ab
+      <input type="number" name="minRooms" inputmode="numeric" step="1" min="1">
+    </label>
+    <label>Sortierung
+      <select name="sort">
+        <option value="new">Neueste zuerst</option>
+        <option value="price">Preis aufsteigend</option>
+        <option value="sqm">Preis pro m²</option>
+        <option value="area">Fläche absteigend</option>
+      </select>
+    </label>
+  </div>
+
+  <fieldset>
+    <legend>Bezirke</legend>
+    <div id="districts" class="chips"></div>
+  </fieldset>
+
+  <div class="row toggles">
+    <label class="switch"><input type="checkbox" name="outdoorOnly"> Nur mit Balkon / Terrasse / Freifläche</label>
+    <label class="switch"><input type="checkbox" name="includeUnknown"> Angebote ohne Preis- oder Flächenangabe zeigen</label>
+    <label class="switch"><input type="checkbox" name="showHidden"> Ausgeblendete zeigen</label>
+    <label class="switch"><input type="checkbox" name="favOnly"> Nur gemerkte</label>
+  </div>
+
+  <fieldset>
+    <legend>Plattformen</legend>
+    <div id="platforms" class="chips"></div>
+  </fieldset>
+
+  <button type="button" id="reset" class="link">Auf meine Kriterien zurücksetzen</button>
+</form>
+
+<main>
+  <p id="count" class="count"></p>
+  <ul id="list" class="list"></ul>
+</main>
+
+<footer class="muted">
+  Preise wie auf der Plattform angegeben, das ist je nach Inserat Kalt- oder Gesamtmiete. Daten werden automatisch mehrmals täglich aktualisiert, nur für den privaten Gebrauch.
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
