@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 <header class="topbar">
@@ -101,6 +101,14 @@
 
   <aside class="map-pane" id="mapPane" hidden>
     <div id="map" class="map"></div>
+    <div id="shadowPane" class="shadow-pane" hidden>
+      <div class="shadow-bar">
+        <span id="shadowLabel" class="shadow-label"></span>
+        <a id="shadowOpen" class="shadow-link" target="_blank" rel="noopener">In neuem Tab</a>
+        <button type="button" id="shadowClose" class="btn">Zurück zur Karte</button>
+      </div>
+      <iframe id="shadowFrame" title="Shadowmap: Sonne und Schatten" allow="fullscreen; geolocation" referrerpolicy="no-referrer"></iframe>
+    </div>
     <p id="mapHint" class="map-hint">Fahr über ein Angebot, um seine Lage zu sehen. „Shadowmap“ zeigt Sonne und Schatten an der markierten Stelle.</p>
   </aside>
 </div>
@@ -125,6 +133,6 @@
 </dialog>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<script src="app.js?v=5"></script>
+<script src="app.js?v=6"></script>
 </body>
 </html>

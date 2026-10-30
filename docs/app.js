@@ -454,7 +454,7 @@ const mapView = {
     }
     $("mapHint").textContent = label || "Keine Ortsangabe";
     this.updateShadowLink();
-    if (pan && bounds) {
+    if (pan && bounds && !this.shadowOn) {
       // Always move: previously the map only moved when the target was off-screen,
       // so a listing inside a zoomed-out view looked like it was ignored.
       this.map.stop();
@@ -462,35 +462,77 @@ const mapView = {
     }
   },
 
-  shadowLink: null,
-
   addShadowControl() {
     const Control = L.Control.extend({
       options: { position: "topright" },
       onAdd: () => {
-        const a = L.DomUtil.create("a", "map-btn");
-        a.target = "_blank";
-        a.rel = "noopener";
-        a.title = "Sonne und Schatten an dieser Stelle in Shadowmap ansehen";
-        a.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg> Shadowmap';
-        L.DomEvent.disableClickPropagation(a);
-        a.addEventListener("click", () => this.updateShadowLink());
-        this.shadowLink = a;
-        return a;
+        const b = L.DomUtil.create("button", "map-btn");
+        b.type = "button";
+        b.title = "Sonne und Schatten an dieser Stelle mit Shadowmap ansehen";
+        b.innerHTML = '<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg> Shadowmap';
+        L.DomEvent.disableClickPropagation(b);
+        b.addEventListener("click", () => this.setShadow(true));
+        return b;
       },
     });
     new Control().addTo(this.map);
     this.map.on("moveend", () => this.updateShadowLink());
-    this.updateShadowLink();
+    $("shadowClose").addEventListener("click", () => this.setShadow(false));
   },
 
-  updateShadowLink() {
-    if (!this.shadowLink || !this.map) return;
+  shadowOn: false,
+  shadowUrl: null,
+  shadowTimer: null,
+
+  shadowTarget() {
     const x = this.active;
     const exact = x && x.geo && x.geo.exact;
-    const c = exact ? L.latLng(x.geo.lat, x.geo.lon) : this.map.getCenter();
-    const zoom = exact ? 18 : Math.max(this.map.getZoom(), 15);
-    this.shadowLink.href = `https://app.shadowmap.org/?lat=${c.lat.toFixed(5)}&lng=${c.lng.toFixed(5)}&zoom=${zoom}&time=${Date.now()}`;
+    let c, zoom, label;
+    if (exact) {
+      [c, zoom, label] = [L.latLng(x.geo.lat, x.geo.lon), 18, cleanTitle(x.title).slice(0, 60)];
+    } else if (x && x.geo) {
+      [c, zoom, label] = [L.latLng(x.geo.lat, x.geo.lon), 16, "Ungefähre Lage (keine genaue Adresse)"];
+    } else if (x && x.district) {
+      [c, zoom, label] = [L.latLng(DISTRICT_CENTERS[x.district]), 15, `Bezirksmitte ${x.district}., ${DISTRICT_NAMES[x.district]}`];
+    } else {
+      [c, zoom, label] = [this.map.getCenter(), Math.max(this.map.getZoom(), 15), "Kartenmitte"];
+    }
+    return { url: `https://app.shadowmap.org/?lat=${c.lat.toFixed(5)}&lng=${c.lng.toFixed(5)}&zoom=${zoom}`, label };
+  },
+
+  setShadow(on) {
+    this.shadowOn = on;
+    $("mapPane").classList.toggle("shadow-on", on);
+    $("map").hidden = on;
+    $("shadowPane").hidden = !on;
+    if (on) {
+      this.shadowUrl = null;
+      this.updateShadowLink(true);
+    } else {
+      $("shadowFrame").removeAttribute("src");
+      this.shadowUrl = null;
+      requestAnimationFrame(() => {
+        this.map.invalidateSize();
+        if (this.active) this.show(this.active);
+      });
+    }
+  },
+
+  updateShadowLink(now = false) {
+    if (!this.shadowOn || !this.map) return;
+    // Shadowmap is a heavy 3D app, so only reload it once the hovered listing has settled.
+    clearTimeout(this.shadowTimer);
+    const apply = () => {
+      const { url, label } = this.shadowTarget();
+      $("shadowLabel").textContent = label;
+      $("shadowOpen").href = url;
+      if (url !== this.shadowUrl) {
+        this.shadowUrl = url;
+        $("shadowFrame").src = `${url}&time=${Date.now()}`;
+      }
+    };
+    if (now) apply();
+    else this.shadowTimer = setTimeout(apply, 700);
   },
 };
 
