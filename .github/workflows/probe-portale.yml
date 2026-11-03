@@ -21,6 +21,6 @@ jobs:
             echo "$i $u -> $code" >> probe/index.txt
             sleep 1
           done < probe-urls.txt
-          python3 probe-shadow.py || true
+          true
           git config user.name github-actions; git config user.email github-actions@users.noreply.github.com
           git add probe && git commit -m probe && git push

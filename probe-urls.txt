@@ -1,1 +1,3 @@
-https://app.shadowmap.org/robots.txt
+https://www.wohnnet.at/immobilien/mietwohnungen/wien
+https://www.wohnnet.at/immobilien/suche
+https://www.wohnnet.at/immobilien/
