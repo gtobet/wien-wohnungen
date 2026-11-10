@@ -1,3 +1,5 @@
-1 https://www.wohnnet.at/immobilien/mietwohnungen/wien -> 503 https://www.wohnnet.at/immobilien/nicht-verfuegbar 11805
-2 https://www.wohnnet.at/immobilien/suche -> 503 https://www.wohnnet.at/immobilien/nicht-verfuegbar 11805
-3 https://www.wohnnet.at/immobilien/ -> 503 https://www.wohnnet.at/immobilien/nicht-verfuegbar 11805
+1 https://www.wohnnet.at/immobilien/mietwohnungen/wien -> 200 https://www.wohnnet.at/immobilien/mietwohnungen/wien 136135
+2 https://www.wohnnet.at/immobilien/suche -> 200 https://www.wohnnet.at/immobilien/ 42884
+3 https://www.wohnnet.at/immobilien/ -> 200 https://www.wohnnet.at/immobilien/ 42884
+4 # 2026-11-10 -> curl: (3) URL rejected: Malformed input to a URL function
+000  0
