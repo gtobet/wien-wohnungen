@@ -13,9 +13,10 @@ import findmyhome  # noqa: E402
 import immoscout  # noqa: E402
 import immowelt  # noqa: E402
 import willhaben  # noqa: E402
+import wohnnet  # noqa: E402
 from common import Session  # noqa: E402
 
-PLATFORMS = [willhaben, immoscout, immowelt, findmyhome, derstandard]
+PLATFORMS = [willhaben, immoscout, immowelt, findmyhome, wohnnet, derstandard]
 OUT = pathlib.Path(__file__).resolve().parent.parent / "docs" / "data" / "listings.json"
 DISTRICTS = OUT.parent / "bezirke.geojson"
 DISTRICTS_URL = (
